@@ -1,23 +1,22 @@
 /* File parser.mly */
 
-%{ (* header *)
-  
+%{ (* TBD *)
+
 %} /* declarations */
 %token <string >VARidt  /* variable with an identifier (string)*/
-%token <string >FIELDidt  /* field with an identifier (string) HACK HACK HACK*/ 
 
 (*key words and symbol tokens*)
 
-%token <int> INT
+%token <int> INT 
 %token <bool> TorF  //    true/false 
-%token EQLEQL  GRATER  LESSTHAN  GOE  LOE  NEQL
+%token EQLEQL  GRATER  LESSTHAN  GOE  LOE  NEQL  
 //       ==       >       <      >=    <=   <>
 
-%token EQL PLUS MINUS TIMES DIV LPAREN RPAREN SEMICOLON COLON DOT AND  OR NOT
-//      =   +     -     *    /    (      )        ;       :    .   &&  ||  !
+%token EQL PLUS MINUS TIMES DIV LPAREN RPAREN SEMICOLON COLON DOT AND  OR NOT EOL EOF  
+//      =   +     -     *    /    (      )        ;       :    .   &&  ||  !  \n
 
 
-%token IF WHILE ELSE NULL PROC MALLOC VAR
+%token IF WHILE ELSE NULL PROC MALLOC VAR THEN 
 
 
 %start prog                   /* the entry point */
@@ -31,14 +30,17 @@
 %type <a'> locExpr
 %type <a'> procExpr
 %type <a'> fieldExpr (* ? difference from  locExp ?? HACK HACK HACK *)
-%type cmd
-%type varDeclr
-%type procCall
-%type objAlloc
-%type varAssn
-%type fieldAss
-%type seqCtrl
-%type parallelism
+
+%type <a'>cmd
+%type <a'>cmds
+
+%type <a'>varDeclr
+%type <a'>procCall
+%type <a'>objAlloc
+%type <a'>varAssn
+%type <a'>fieldAssn
+%type <a'>seqCtrl
+%type <a'>parallelism
 
 
 %left PLUS MINUS          /* lowest precedence  */
@@ -48,18 +50,26 @@
 %% /* rules */
 
 prog :
-    cmds EOL  { print_int $1 ; print_newline(); flush stdout; () }
-	
+    cmds EOF { print_int $1 ; print_newline(); flush stdout; () } //hack
+
+cmds :
+    cmd SEMICOLON
+    | cmd SEMICOLON cmds {}
+    | cmd SEMICOLON EOL cmds {}
+
+
 expr:
-    fieldExpr
-    | ariExpr
-    | locExpr
-    | procExpr
+      fieldExpr {}
+    | ariExpr   {}
+    | locExpr   {}
+    | procExpr  {}
 
-fieldExpr://hack hack hack ??? need specification
+fieldExpr:
+     VARidt DOT VARidt{}
+//fieldExpr://hack hack hack ??? need specification
 
-ariExpr :
-    e1 = expr PLUS  e2 = expr     { e1 + e2 }
+ariExpr:
+      e1 = expr PLUS  e2 = expr     { e1 + e2 }
     | e1 = expr MINUS e2 = expr     { e1 - e2 }
     | e1 = expr TIMES e2 = expr     { e1 * e2 }
     | e1 = expr DIV   e2 = expr     { e1 / e2 }
@@ -68,51 +78,62 @@ ariExpr :
     | v = INT                       { v }
   
 locExpr :
-    e = VARidt                    {e}
-    | NULL
-    | e1=expr DOT e2=expr
+      e = VARidt                    {e}
+    | NULL                          {}
+    | e1=expr DOT e2=expr           {}
 
 procExpr :
-    PROC VARidt COLON cmd//hack hack hack -> what if the procedure takes multiple parameters?
-
+    PROC VARidt COLON cmds           {}//hack hack hack -> what if the procedure takes multiple parameters? P{}
+    | PROC fieldExpr COLON cmds       {}
 
 boolExp :
-    boolExp OR boolExp
-    | boolExp AND boolExp
-    | NOT boolExp    
-    | LPAREN e = boolExp RPAREN  
+      boolExp OR boolExp            {}
+    | boolExp AND boolExp           {}
+    | NOT boolExp                   {}
+    | LPAREN e = boolExp RPAREN     {}
 
-    | ariExpr EQLEQL ariExpr
-    | ariExpr GRATER ariExpr
-    | ariExpr GOE ariExpr
-    | ariExpr LESSTHAN ariExpr
-    | ariExpr LOE ariExpr
-    | ariExpr NEQL ariExpr
+    | ariExpr EQLEQL ariExpr        {}
+    | ariExpr GRATER ariExpr        {}
+    | ariExpr GOE ariExpr           {}
+    | ariExpr LESSTHAN ariExpr      {}
+    | ariExpr LOE ariExpr           {}
+    | ariExpr NEQL ariExpr          {}
 
-    | TorF
+    | TorF                          {}
 
 
 cmd:
-    varDeclr
-    | procCall
-    | objAlloc
-    | varAssn
-    | fieldAss
-    | seqCtrl
-    | parallelism
+      varDeclr                      {}
+    | procCall                      {}
+    | objAlloc                      {}
+    | varAssn                       {}
+    | fieldAssn                     {}
+    | seqCtrl                       {}
+    | parallelism                   {}
 
 varDeclr:
-    | VAR VARidt //hack hack hack -> see paper
+    | VAR VARidt                        {}//hack hack hack -> see paper
 procCall:
-    | expr LPAREN expr RPAREN 
-objAlloc
-    | MALLOC expr LPAREN VARidt RPAREN 
-varAssn
-    | VARidt EQL expr
-fieldAss
-    | expr DOT expr EQL expr    
-//seqCtrl
-//parallelism hack hack hack
+    | expr LPAREN expr RPAREN           {}
+objAlloc:
+    | MALLOC expr LPAREN VARidt RPAREN  {}
+varAssn:
+    | VARidt EQL expr                   {}
+fieldAssn:
+    | fieldExpr EQL expr            {}
+
+
+// hack should we support multiple commands
+seqCtrl:
+    WHILE boolExp THEN cmd ELSE cmd     {}
+    | IF boolExp THEN cmd ELSE cmd      {}
+    | WHILE boolExp THEN cmd            {}
+    | IF boolExp THEN cmd               {}
+
+
+parallelism :{}
+
+//hack hack hack
 
 
 %% (* trailer *)
