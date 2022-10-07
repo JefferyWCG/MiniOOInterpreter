@@ -3,7 +3,7 @@
 %{ (* TBD *)
 
 %} /* declarations */
-%token <string >VARidt  /* variable with an identifier (string)*/
+%token <string >VARidt  FLD/* variable with an identifier (string)*/
 
 (*key words and symbol tokens*)
 
@@ -46,7 +46,9 @@ prog :
 
 
 expr:
-     INT 
+    FLD
+
+    |INT 
     |LPAREN expr MINUS expr RPAREN  {} 
 
     |NULL                           {}

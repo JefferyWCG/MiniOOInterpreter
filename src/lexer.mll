@@ -11,19 +11,10 @@ rule token = parse
     |"malloc"        {MALLOC}
     |"var"           {VAR}
     |"then"          {THEN}
-    |"=="            {ELQELQ}
-    |">="            {GOE}   
-    |"<="            {LOE}
-    |"<>"            {NEQL}
-    |'>'             {GRATER}
     |'<'             {LESSTHAN}
-    |"&&"            {AND}
-    |"||"            {OR}
     |'='             {EQL}
     |'+'             {PLUS}
     |'-'             {MINUS}
-    |'*'             {TIMES}
-    |'/'             {DIV}
     |'('             {LPAREN}
     |')'             {RPAREN}
     |';'             {SEMICOLON}
@@ -33,7 +24,10 @@ rule token = parse
     |'\n'            {EOL}
     |eof             {EOF} (*28*)
     |("true"|"false"){TorF}
+    |'{'             {LBRACKET}
+    |'}'             {RBRACKET}
 
     |['0'-'9']+ as num   { INT (int_of_string num) }
-    |(['a'-'z'] | ['A'-'Z'])(['a'-'z'] | ['A'-'Z'] | ['0'-'9'])* as idt  { VARidt idt }
+    |(['A'-'Z'])(['a'-'z'] | ['A'-'Z'] | ['0'-'9'])* as idt  { FLD idt }
+    |(['a'-'z'])(['a'-'z'] | ['A'-'Z'] | ['0'-'9'])* as idt  { VARidt idt }
 
