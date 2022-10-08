@@ -1,6 +1,8 @@
 /* File parser.mly */
 
-%{ (* TBD *)
+%{
+
+open AST
 
 %} /* declarations */
 %token <string >VARidt  FLD/* variable with an identifier (string)*/
@@ -20,7 +22,7 @@
 
 
 %start prog                   /* the entry point */
-%type <unit> prog  
+%type <AST.> prog  
 
 (* non-terminal declaration *)
 %type <bool> boolExp
@@ -42,16 +44,16 @@
 %% /* rules */
 
 prog :
-    cmd EOF { print_int $1 ; print_newline(); flush stdout; () } //hack
+    c1=cmd EOF {startContructor(c1)} 
 
 
 expr:
-    FLD
+    fld=FLD                             {expnConstructor_fld(fld)}
 
-    |INT 
-    |LPAREN expr MINUS expr RPAREN  {} 
+    |mum=INT            {expnConstructor_ari_int(num)}
+    |LPAREN e1=expr MINUS e2=expr RPAREN  {expnConstructor_ari_min(e1 e2)} 
 
-    |NULL                           {}
+    |NULL                           {expnConstructor_loc_null}
     |VARidt                         {}
     |LPAREN expr DOT expr RPAREN    {} 
 
