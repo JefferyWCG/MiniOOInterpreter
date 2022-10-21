@@ -1,7 +1,6 @@
 (* File lexer.mll *)
 {
-open parser  (* Type token defined in parser.mli *)
-exception Eof 
+open Parser  (* Type token defined in parser.mli *)
 }
 rule token = parse
     "if"            {IF} 
@@ -14,17 +13,14 @@ rule token = parse
     |"then"          {THEN}
     |'<'             {LESSTHAN}
     |'='             {EQL}
-    |'+'             {PLUS}
     |'-'             {MINUS}
     |'('             {LPAREN}
     |')'             {RPAREN}
     |';'             {SEMICOLON}
     |':'             {COLON}
     |'.'             {DOT}
-    |'!'             {NOT}
-    |'\n'            {EOL}
     |eof             {EOF} (*28*)
-    |("true"|"false"){TorF}
+    |("true"|"false") as tf {TorF (bool_of_string tf)}
     |'{'             {LBRACKET}
     |'}'             {RBRACKET}
     | "|||"          {PARA}

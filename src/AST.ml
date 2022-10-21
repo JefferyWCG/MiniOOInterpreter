@@ -8,7 +8,7 @@ and expn = Fieldn of string
   |ProcDcln of (string*node)
 and boolexpn = |TorF of bool|LessThann of (node*node) (*e<e*)
 
-and seqCtrln = IfStm of (bool*node*node)| WhileStm of (bool*node) | TwoCmds of (node*node) | SKIP
+and seqCtrln = IfStm of (node*node*node)| WhileStm of (node*node) | TwoCmds of (node*node) | SKIP
 and parallelism = Para of (node*node) | Atom of node
 and cmdn = VarDeclrn of (string*node) (* var str; cmd*)                
   |ProcCalln of (node*node)  (* e(e) *)      
@@ -27,8 +27,7 @@ and node = {raw:undecNode; mutable scope:scopeAtrb}
 
 
 (*------------------------------------------------------------*)
-let startContructor node = match node with 
-  |_ -> {scope=TBD;raw=Start node }
+let startContructor node = {scope=TBD;raw=Start node }
 
 let expnConstructor_fld fld = {scope=TBD;raw=Expn (Fieldn fld)} 
 
@@ -51,7 +50,7 @@ let boolExpnConstructor_TorF tf = {scope=TBD; raw=BoolExpN(TorF tf)}
 
 
   (*--- commands constructor  ---*)
-let cmdExpnConstructor_varDecl str = {scope=TBD; raw = CmdN (VarDeclrn str)}
+let cmdExpnConstructor_varDecl tup = {scope=TBD; raw = CmdN (VarDeclrn tup)}
 let cmdExpnConstructor_funcCall tup = {scope=TBD; raw = CmdN (ProcCalln tup)}
 let cmdExpnConstructor_malloc str = {scope=TBD; raw = CmdN (ObjAllocn str)}
 let cmdExpnConstructor_varAssn tup = {scope=TBD; raw = CmdN (VarAssnn tup)}
