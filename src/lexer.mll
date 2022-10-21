@@ -1,6 +1,7 @@
 (* File lexer.mll *)
 {
 open parser  (* Type token defined in parser.mli *)
+exception Eof 
 }
 rule token = parse
     "if"            {IF} 
@@ -26,6 +27,9 @@ rule token = parse
     |("true"|"false"){TorF}
     |'{'             {LBRACKET}
     |'}'             {RBRACKET}
+    | "|||"          {PARA}
+    |"atmo"          {ATOM}
+    |"skip"          {SKIP}
 
     |['0'-'9']+ as num   { INT (int_of_string num) }
     |(['A'-'Z'])(['a'-'z'] | ['A'-'Z'] | ['0'-'9'])* as idt  { FLD idt }
