@@ -26,12 +26,12 @@ open AST
 %% /* rules */
 
 prog :
-    c1=cmd EOF {startContructor(c1)} 
+    c1=cmd SEMICOLON EOF {startContructor(c1)} 
 
 expr:
     fld=FLD                                     {expnConstructor_fld(fld)}
     |num=INT                                    {expnConstructor_ari_int num }
-    |LPAREN n1=expr MINUS n2=expr RPAREN        {expnConstructor_ari_min (n1,n2) } 
+    |n1=expr MINUS n2=expr                     {expnConstructor_ari_min (n1,n2) } 
     |NULL                                       {expnConstructor_loc_null}
     |str=VARidt                                 {expnConstructor_loc_var str}
     |LPAREN n1=expr DOT n2=expr RPAREN          {expnConstructor_fldexp (n1,n2)} 

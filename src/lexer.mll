@@ -3,7 +3,8 @@
 open Parser  (* Type token defined in parser.mli *)
 }
 rule token = parse
-    "if"            {IF} 
+    [' ' '\t' '\n'] { token lexbuf } (* skip blanks and tabs *)
+    |"if"            {IF} 
     |"while"         {WHILE} 
     |"else"          {ELSE}
     |"null"          {NULL}
@@ -11,18 +12,18 @@ rule token = parse
     |"malloc"        {MALLOC}
     |"var"           {VAR}
     |"then"          {THEN}
-    |'<'             {LESSTHAN}
-    |'='             {EQL}
-    |'-'             {MINUS}
-    |'('             {LPAREN}
-    |')'             {RPAREN}
-    |';'             {SEMICOLON}
-    |':'             {COLON}
-    |'.'             {DOT}
+    |"<"             {LESSTHAN}
+    |"="             {EQL}
+    |"-"             {MINUS}
+    |"("             {LPAREN}
+    |")"             {RPAREN}
+    |";"             {SEMICOLON}
+    |":"             {COLON}
+    |"."             {DOT}
     |eof             {EOF} (*28*)
     |("true"|"false") as tf {TorF (bool_of_string tf)}
-    |'{'             {LBRACKET}
-    |'}'             {RBRACKET}
+    |"{"             {LBRACKET}
+    |"}"            {RBRACKET}
     | "|||"          {PARA}
     |"atmo"          {ATOM}
     |"skip"          {SKIP}

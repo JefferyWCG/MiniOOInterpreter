@@ -1,5 +1,3 @@
-
-
 type ariExpn = Int of int | MinExpn of  (node*node) (* e-e *)
 and locExpn = NULLn | VarIdtn of string| FldExpn of (node*node) (*e.e*)
 and expn = Fieldn of string
@@ -21,46 +19,46 @@ and cmdn = VarDeclrn of (string*node) (* var str; cmd*)
 and undecNode = Expn of expn| BoolExpN of boolexpn|CmdN of cmdn|Start of node
 
 and symbTable =(string) list (* record all variable name*)
-and scopeAtrb = Done of { v:symbTable; e:bool }| TBD
+and scopeAtrb = Done of { v:symbTable; mutable e:bool }| TBDscope
 
 and node = {raw:undecNode; mutable scope:scopeAtrb}
 
 
 (*------------------------------------------------------------*)
-let startContructor node = {scope=TBD;raw=Start node }
+let startContructor node = {scope=TBDscope;raw=Start node }
 
-let expnConstructor_fld fld = {scope=TBD;raw=Expn (Fieldn fld)} 
+let expnConstructor_fld fld = {scope=TBDscope;raw=Expn (Fieldn fld)} 
 
-let expnConstructor_ari_int num = {scope=TBD;raw=Expn (AriExpn (Int num))} 
+let expnConstructor_ari_int num = {scope=TBDscope;raw=Expn (AriExpn (Int num))} 
 
-let expnConstructor_ari_min tup =  {scope=TBD;raw=Expn (AriExpn (MinExpn tup))}
+let expnConstructor_ari_min tup =  {scope=TBDscope;raw=Expn (AriExpn (MinExpn tup))}
 
-let expnConstructor_loc_null = {raw=Expn(LocExpn(NULLn)); scope=TBD}
+let expnConstructor_loc_null = {raw=Expn(LocExpn(NULLn)); scope=TBDscope}
 
-let expnConstructor_loc_var str = {scope=TBD;raw=Expn (LocExpn (VarIdtn str))} 
+let expnConstructor_loc_var str = {scope=TBDscope;raw=Expn (LocExpn (VarIdtn str))} 
 
-let expnConstructor_fldexp tup = {scope=TBD; raw =Expn(LocExpn(FldExpn tup))}
+let expnConstructor_fldexp tup = {scope=TBDscope; raw =Expn(LocExpn(FldExpn tup))}
 
-let expnConstructor_procDecl tup = {scope=TBD; raw=Expn(ProcDcln tup)}
+let expnConstructor_procDecl tup = {scope=TBDscope; raw=Expn(ProcDcln tup)}
 
 
   (*--- boolean expression ---*)
-let boolExpnConstructor_lessThan tup = {scope=TBD; raw=BoolExpN(LessThann tup)}
-let boolExpnConstructor_TorF tf = {scope=TBD; raw=BoolExpN(TorF tf)}
+let boolExpnConstructor_lessThan tup = {scope=TBDscope; raw=BoolExpN(LessThann tup)}
+let boolExpnConstructor_TorF tf = {scope=TBDscope; raw=BoolExpN(TorF tf)}
 
 
   (*--- commands constructor  ---*)
-let cmdExpnConstructor_varDecl tup = {scope=TBD; raw = CmdN (VarDeclrn tup)}
-let cmdExpnConstructor_funcCall tup = {scope=TBD; raw = CmdN (ProcCalln tup)}
-let cmdExpnConstructor_malloc str = {scope=TBD; raw = CmdN (ObjAllocn str)}
-let cmdExpnConstructor_varAssn tup = {scope=TBD; raw = CmdN (VarAssnn tup)}
-let cmdExpnConstructor_fldAssn tup = {scope=TBD; raw = CmdN (FieldAssnn tup)}
-let cmdExpnConstructor_if tup= {scope=TBD; raw = CmdN (SeqCtrln (IfStm tup))}
-let cmdExpnConstructor_while tup = {scope=TBD; raw = CmdN (SeqCtrln (WhileStm tup))}
-let cmdExpnConstructor_2cmd tup = {scope=TBD; raw = CmdN (SeqCtrln (TwoCmds tup))}
-let cmdExpnConstructor_skip = {scope=TBD; raw = CmdN (SeqCtrln SKIP)}
-let cmdExpnConstructor_para tup = {scope=TBD; raw = CmdN (Parallelism (Para tup))}
-let cmdExpnConstructor_atom n1 = {scope=TBD; raw = CmdN (Parallelism (Atom n1))}
+let cmdExpnConstructor_varDecl tup = {scope=TBDscope; raw = CmdN (VarDeclrn tup)}
+let cmdExpnConstructor_funcCall tup = {scope=TBDscope; raw = CmdN (ProcCalln tup)}
+let cmdExpnConstructor_malloc str = {scope=TBDscope; raw = CmdN (ObjAllocn str)}
+let cmdExpnConstructor_varAssn tup = {scope=TBDscope; raw = CmdN (VarAssnn tup)}
+let cmdExpnConstructor_fldAssn tup = {scope=TBDscope; raw = CmdN (FieldAssnn tup)}
+let cmdExpnConstructor_if tup= {scope=TBDscope; raw = CmdN (SeqCtrln (IfStm tup))}
+let cmdExpnConstructor_while tup = {scope=TBDscope; raw = CmdN (SeqCtrln (WhileStm tup))}
+let cmdExpnConstructor_2cmd tup = {scope=TBDscope; raw = CmdN (SeqCtrln (TwoCmds tup))}
+let cmdExpnConstructor_skip = {scope=TBDscope; raw = CmdN (SeqCtrln SKIP)}
+let cmdExpnConstructor_para tup = {scope=TBDscope; raw = CmdN (Parallelism (Para tup))}
+let cmdExpnConstructor_atom n1 = {scope=TBDscope; raw = CmdN (Parallelism (Atom n1))}
 
 
 
