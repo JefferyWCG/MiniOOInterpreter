@@ -1,13 +1,19 @@
 (* File Docoration.ml *)
 open Parsing
 open AST
+exception Excpetion of string
 
 let str ="
 var x; 
   {x=5-2; 
-  {var y; if 5<2 then x=2 else {malloc(x);y=1}; x=100}
+  {var y;y=x-1; x=100}
   };
-
+"
+let str1 = "
+var x; 
+  var y;
+    var z;
+      x=1;
 "
 let lexbuf = Lexing.from_string str 
 let startNode = Parser.prog Lexer.token lexbuf
@@ -68,6 +74,7 @@ let rec implementScope node =  match node with
           setScopeChecker node (implementScope n1||implementScope n2)
         |Atom n -> setSymtable n []; setScopeChecker node (implementScope n)
       )
+    |_-> raise (Excpetion "scope error 138")
   )
 |{raw=Expn expn; scope=_} ->
   (match expn with
@@ -135,6 +142,7 @@ let rec printNode node =  match node with
         |Para (n1,n2) ->"parallelism"
         |Atom n -> "atmoic"
       )
+    |Block subn-> "Block"
   )
 |{raw=Expn expn; scope=_} ->
   (match expn with
@@ -181,6 +189,7 @@ let rec getSubNode node = match node with
         |Para (n1,n2) ->[n1;n2]
         |Atom n -> [n]
       )
+    |Block cmdn-> [cmdn]
   )
 |{raw=Expn expn; scope=_} ->
   (match expn with
@@ -253,14 +262,15 @@ let to_string ?line_prefix ~get_name ~get_children x =
   Buffer.contents buf
 
 
-let testPrint () =
-  let tree =startNode
+let testPrint inputNode =
+  let tree =inputNode
   in
   let get_name = printNode
   in
   let get_children = getSubNode
   in
   let result = to_string ~line_prefix:"* " ~get_name ~get_children tree in
-  print_string result
+  print_string result 
 ;;
+testPrint startNode
 

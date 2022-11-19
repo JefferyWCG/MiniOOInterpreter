@@ -14,7 +14,8 @@ and cmdn = VarDeclrn of (string*node) (* var str; cmd*)
   |VarAssnn of (string*node)   (* x=1 *)              
   |FieldAssnn of (node*node*node)                    
   |SeqCtrln of seqCtrln    
-  |Parallelism of parallelism             
+  |Parallelism of parallelism       
+  |Block of node      
 
 and undecNode = Expn of expn| BoolExpN of boolexpn|CmdN of cmdn|Start of node
 
