@@ -26,7 +26,10 @@ let once () =
 
 while !terminate do
   once();
-  print_string (printHeap !theHeap);
+  print_string ("\n===================================================\n\n");
+  print_string (printStack !theStack^"\n\n");
+  print_string (printHeap !theHeap^"\n\n");
   let cmdnode = match !theControl with |Cmd cmdn->cmdn in
   testPrint ({raw=CmdN cmdnode;  scope=TBDscope});
+  print_string ("\n===================================================\n");
 done

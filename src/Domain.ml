@@ -32,22 +32,12 @@ let initConfig = ControlStateConfig( (Cmd initCmd), ([],[]) )
 let config = ref initConfig
 let terminate = ref true;;
 
+let printSpace = ref ""
+
 
 let getNewObj () = 
   heapCounter := !heapCounter+1;
   Obj !heapCounter 
-
-  
-let printTva (tva:tva) = match tva with
-| Error-> "Tva Error"
-| Value v -> match v with
-  |FldVal (Fld fld) -> fld
-  |IntVal (Num num) -> string_of_int num
-  |CloVal(Clo (varName,_,_)) -> "proc "^varName^":Commands"
-  |LocVal loc -> (match loc with
-    |ObjLoc (Obj obj)-> "["^ string_of_int obj^ "]"
-    |NULL -> "null"
-    )
 
 let rec getFromEnv varName (env:env) = 
 if (List.mem_assoc varName env) then 
@@ -79,6 +69,47 @@ let setHeap obj fld tva (hp:heap) =
 
 let getVar varName (st:stack) hp = getfromHeap (getFromStack varName st) (Fld "val") hp
 
+let isLocationInHeap tva (hp:heap) = 
+   match tva with 
+   |Value (LocVal (ObjLoc(Obj obj)))->  
+    List.fold_left (fun acc ((Obj obj1,_),_) -> if obj = obj1 then true else acc) false hp
+   |_-> false
+
+let isField tva (hp:heap) = 
+  match tva with 
+  |Value (FldVal Fld fld)->true 
+  |_-> false 
+
+let getObjFromTva tva (hp:heap) = 
+  if not (isLocationInHeap tva hp) then raise (Excpetion "can't cast to an object")
+  else   match tva with 
+  |Value (LocVal (ObjLoc (obj)))->  obj  
+  |_-> raise (Excpetion "getObjFromTva error")
+
+  let getFldFromTva tva (hp:heap) = 
+    if not (isField tva hp) then raise (Excpetion "can't cast to a field")
+    else    match tva with 
+    |Value (FldVal fld)->fld 
+    |_-> raise (Excpetion "getFldFromTva error") 
+
+let paddingEmpty str n= let l = String.length str and padding = ref "" in for i=l  to n
+  do 
+    padding := !padding^" "
+  done;
+  !padding
+  
+    
+let printTva (tva:tva) = match tva with
+| Error-> "Error"
+| Value v -> match v with
+  |FldVal (Fld fld) -> fld
+  |IntVal (Num num) -> string_of_int num
+  |CloVal(Clo (varName,_,_)) -> "proc "^varName^":Commands"
+  |LocVal loc -> (match loc with
+    |ObjLoc (Obj obj)-> "object_ID_"^ string_of_int obj
+    |NULL -> "null"
+    )
+
 
 let printHeap (hp:heap) = 
   let myHash = Hashtbl.create 123456 
@@ -94,12 +125,24 @@ let printHeap (hp:heap) =
   (fun key acc-> 
     let fields = Hashtbl.find_all myHash key in 
       acc^(List.fold_left (fun acc cur -> acc^"\t\t"^ match cur with
-      |((Obj _,Fld fld),tva) -> fld^ "\t| "^ printTva tva^"\n"^"\t\t--------+--------------\n" )
-       ("Object_ID_"^(string_of_int key)^"\tfield\t| value\n"^"\t\t--------+--------------\n") fields)^"\n"
-  )!keys "\n-------------------------------------------\nCurrent Heap\n-------------------------------------------\n" in heap^"-------------------------------------------\n";;
+      |((Obj _,Fld fld),tva) -> fld^ paddingEmpty fld 10^"| "^ printTva tva^"\n"^"\t\t-----------+--------------\n" )
+       ("Object_ID_"^(string_of_int key)^"\tfield      | value\n"^"\t\t-----------+--------------\n") fields)^"\n"
+  )!keys "Current Heap\n----------------------------------------------\n" in heap^"-------------------------------------------\n";;
 
 
+
+
+let printStack (st:stack) = let line = "+----------+---------------+----------------+" in
+List.fold_right (
+  fun cur acc-> acc ^ (match cur with
+    |Decl [(varName,Obj objID)]-> "| Declear  | "^varName^(paddingEmpty varName 13)^"| Object_ID_"^string_of_int objID^ paddingEmpty (string_of_int objID) 4^"|"
+    |Call ([(varName,Obj objID)],_)-> "| Call     | "^varName^(paddingEmpty varName 13)^"| Object_ID_"^string_of_int objID^ paddingEmpty (string_of_int objID) 4^"|"
+    |_->  raise (Excpetion "error in printing stack")
+    ) ^"\n"^line^"\n"
+  ) st ("Current Stack:\n"^line^"\n| type     | variable name | location       |\n"^line^"\n")
 (* test the print of heap and stack*)
+
+
 let test_print_heap () = 
   let h1 = [((Obj 0, Fld "name"),Value(FldVal(Fld "Jeffery")));((Obj 0, Fld "gpa"),Value(IntVal(Num 4)));
   ((Obj 0, Fld "address"),Value(FldVal(Fld "foo")));((Obj 1, Fld "name"),Value(FldVal(Fld "Mike")));((Obj 2, Fld "name"),Value(FldVal(Fld "Alice")));

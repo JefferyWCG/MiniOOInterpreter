@@ -3,18 +3,31 @@ open Parsing
 open AST
 exception Excpetion of string
 
-let str ="
+let str1 ="
 var x; 
   {x=5-2; 
   {var y;y=x-1; x=100}
   };
 "
-let str1 = "
+let str2 = "
 var x; 
   var y;
-    var z;
-      x=1;
+    {var z; 
+      malloc(x);
+      x=1};
 "
+
+let str3 = "
+  var x;
+    var y;
+    {malloc(x); {x.Foo = Bar;{malloc (y);y.(x.Foo)=Quiz}}};"
+
+let str = "
+  var x;
+  var y;{
+    malloc(y);
+    {x = proc a:y.Foo=a;
+    x(100)}};"
 let lexbuf = Lexing.from_string str 
 let startNode = Parser.prog Lexer.token lexbuf
 
@@ -74,6 +87,7 @@ let rec implementScope node =  match node with
           setScopeChecker node (implementScope n1||implementScope n2)
         |Atom n -> setSymtable n []; setScopeChecker node (implementScope n)
       )
+      |Print n -> setSymtable n []; setScopeChecker node (implementScope n)
     |_-> raise (Excpetion "scope error 138")
   )
 |{raw=Expn expn; scope=_} ->
@@ -83,6 +97,10 @@ let rec implementScope node =  match node with
       match arin with
         |Int num -> setScopeChecker node false
         |MinExpn (n1,n2) -> setSymtables [n1;n2] (getSymtable node);
+        setScopeChecker node (implementScope n1||implementScope n2)
+        |PlusExpn (n1,n2) -> setSymtables [n1;n2] (getSymtable node);
+        setScopeChecker node (implementScope n1||implementScope n2)
+        |TimesExpn (n1,n2) -> setSymtables [n1;n2] (getSymtable node);
         setScopeChecker node (implementScope n1||implementScope n2)
       )
     |LocExpn locn ->(
@@ -101,6 +119,9 @@ let rec implementScope node =  match node with
   (match subn with
     |TorF _ -> setScopeChecker node false;
     |LessThann (n1,n2) ->
+      setSymtables [n1;n2] (getSymtable node);
+      setScopeChecker node (implementScope n1||implementScope n2)
+    |Eql (n1,n2) ->
       setSymtables [n1;n2] (getSymtable node);
       setScopeChecker node (implementScope n1||implementScope n2)
   )
@@ -143,6 +164,7 @@ let rec printNode node =  match node with
         |Atom n -> "atmoic"
       )
     |Block subn-> "Block"
+    |Print subn->"print"
   )
 |{raw=Expn expn; scope=_} ->
   (match expn with
@@ -151,6 +173,8 @@ let rec printNode node =  match node with
       match arin with
         |Int num -> string_of_int num
         |MinExpn (n1,n2) -> "minus expression"
+        |PlusExpn (n1,n2) -> "plus expression"
+        |TimesExpn (n1,n2) -> "times expression"
       )
     |LocExpn locn ->(
       match locn with
@@ -164,6 +188,7 @@ let rec printNode node =  match node with
   (match subn with
     |TorF tf -> string_of_bool tf
     |LessThann (n1,n2) -> "less than"
+    |Eql (n1,n2) -> "=="
   )
 | {raw=Start subn; scope=_} -> "start"
 let printNodeWithSymtab node = match node with
@@ -189,6 +214,7 @@ let rec getSubNode node = match node with
         |Para (n1,n2) ->[n1;n2]
         |Atom n -> [n]
       )
+    |Print expn -> [expn]
     |Block cmdn-> [cmdn]
   )
 |{raw=Expn expn; scope=_} ->
@@ -198,6 +224,8 @@ let rec getSubNode node = match node with
       match arin with
         |Int num -> []
         |MinExpn (n1,n2) -> [n1;n2]
+        |PlusExpn (n1,n2) -> [n1;n2]
+        |TimesExpn (n1,n2) -> [n1;n2]
       )
     |LocExpn locn ->(
       match locn with
@@ -211,6 +239,7 @@ let rec getSubNode node = match node with
   (match subn with
     |TorF tf -> []
     |LessThann (n1,n2) -> [n1;n2]
+    |Eql (n1,n2) -> [n1;n2]
   )
 | {raw=Start subn; scope=_} -> [subn]
 

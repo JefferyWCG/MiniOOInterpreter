@@ -12,11 +12,15 @@ open AST
 %token <int> INT 
 %token <bool> TorF  //    true/false 
 %token  LESSTHAN 
-%token EQL MINUS LPAREN RPAREN SEMICOLON COLON DOT  EOF  LBRACKET RBRACKET PARA ATOM SKIP
+%token EQL MINUS LPAREN RPAREN SEMICOLON COLON DOT  EOF  LBRACKET RBRACKET PARA ATOM SKIP EQLEQL TIMES PLUS PRINT
 %token IF WHILE ELSE NULL PROC MALLOC VAR THEN 
 
 %start prog                   /* the entry point */
 %type <AST.node>prog  
+%left MINUS PLUS          /* lowest precedence  */
+%left TIMES        /* lowest precedence  */
+%left EQL          /* medium precedence  */
+
 
 (* non-terminal declaration *)
 %type <AST.node> boolExp
@@ -32,6 +36,8 @@ expr:
     fld=FLD                                     {expnConstructor_fld(fld)}
     |num=INT                                    {expnConstructor_ari_int num }
     |n1=expr MINUS n2=expr                     {expnConstructor_ari_min (n1,n2) } 
+    |n1=expr PLUS n2=expr                     {expnConstructor_ari_plus (n1,n2) } 
+    |n1=expr TIMES n2=expr                     {expnConstructor_ari_times (n1,n2) } 
     |NULL                                       {expnConstructor_loc_null}
     |str=VARidt                                 {expnConstructor_loc_var str}
     |LPAREN n1=expr DOT n2=expr RPAREN          {expnConstructor_fldexp (n1,n2)} 
@@ -39,6 +45,7 @@ expr:
 
 boolExp :
      n1=expr LESSTHAN n2=expr                   {boolExpnConstructor_lessThan (n1,n2)}
+    |n1=expr EQLEQL n2=expr                   {boolExpnConstructor_eql (n1,n2)}
     | tf=TorF                                   {boolExpnConstructor_TorF tf}
 
 cmd:
@@ -53,3 +60,4 @@ cmd:
     | SKIP                                      {cmdExpnConstructor_skip}  // skip
     | LBRACKET n1=cmd PARA n2=cmd RBRACKET      {cmdExpnConstructor_para (n1,n2)}  // parallelism
     | ATOM LPAREN n1=cmd RPAREN                 {cmdExpnConstructor_atom n1}  // atomic
+    | PRINT LPAREN n1=expr RPAREN               {cmdExpnConstructor_print n1}

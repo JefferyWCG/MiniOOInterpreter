@@ -12,8 +12,12 @@ rule token = parse
     |"malloc"        {MALLOC}
     |"var"           {VAR}
     |"then"          {THEN}
+    |"printf"        {PRINT}
     |"<"             {LESSTHAN}
+    |"=="            {EQLEQL}
     |"="             {EQL}
+    |"+"             {PLUS}
+    |"*"             {TIMES}
     |"-"             {MINUS}
     |"("             {LPAREN}
     |")"             {RPAREN}

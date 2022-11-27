@@ -1,10 +1,10 @@
-type ariExpn = Int of int | MinExpn of  (node*node) (* e-e *)
+type ariExpn = Int of int | MinExpn of  (node*node) | PlusExpn of  (node*node)| TimesExpn of  (node*node)(* e-e *)
 and locExpn = NULLn | VarIdtn of string| FldExpn of (node*node) (*e.e*)
 and expn = Fieldn of string
   |AriExpn of ariExpn
   |LocExpn of locExpn 
   |ProcDcln of (string*node)
-and boolexpn = |TorF of bool|LessThann of (node*node) (*e<e*)
+and boolexpn = |TorF of bool|LessThann of (node*node) |Eql of (node*node)(*e<e*)
 
 and seqCtrln = IfStm of (node*node*node)| WhileStm of (node*node) | TwoCmds of (node*node) | SKIP
 and parallelism = Para of (node*node) | Atom of node
@@ -14,7 +14,8 @@ and cmdn = VarDeclrn of (string*node) (* var str; cmd*)
   |VarAssnn of (string*node)   (* x=1 *)              
   |FieldAssnn of (node*node*node)                    
   |SeqCtrln of seqCtrln    
-  |Parallelism of parallelism       
+  |Parallelism of parallelism     
+  |Print of node  
   |Block of node      
 
 and undecNode = Expn of expn| BoolExpN of boolexpn|CmdN of cmdn|Start of node
@@ -34,6 +35,11 @@ let expnConstructor_ari_int num = {scope=TBDscope;raw=Expn (AriExpn (Int num))}
 
 let expnConstructor_ari_min tup =  {scope=TBDscope;raw=Expn (AriExpn (MinExpn tup))}
 
+let expnConstructor_ari_plus tup =  {scope=TBDscope;raw=Expn (AriExpn (MinExpn tup))}
+
+let expnConstructor_ari_times tup =  {scope=TBDscope;raw=Expn (AriExpn (MinExpn tup))}
+
+
 let expnConstructor_loc_null = {raw=Expn(LocExpn(NULLn)); scope=TBDscope}
 
 let expnConstructor_loc_var str = {scope=TBDscope;raw=Expn (LocExpn (VarIdtn str))} 
@@ -45,6 +51,9 @@ let expnConstructor_procDecl tup = {scope=TBDscope; raw=Expn(ProcDcln tup)}
 
   (*--- boolean expression ---*)
 let boolExpnConstructor_lessThan tup = {scope=TBDscope; raw=BoolExpN(LessThann tup)}
+
+let boolExpnConstructor_eql tup = {scope=TBDscope; raw=BoolExpN(LessThann tup)}
+
 let boolExpnConstructor_TorF tf = {scope=TBDscope; raw=BoolExpN(TorF tf)}
 
 
@@ -60,3 +69,6 @@ let cmdExpnConstructor_2cmd tup = {scope=TBDscope; raw = CmdN (SeqCtrln (TwoCmds
 let cmdExpnConstructor_skip = {scope=TBDscope; raw = CmdN (SeqCtrln SKIP)}
 let cmdExpnConstructor_para tup = {scope=TBDscope; raw = CmdN (Parallelism (Para tup))}
 let cmdExpnConstructor_atom n1 = {scope=TBDscope; raw = CmdN (Parallelism (Atom n1))}
+
+let cmdExpnConstructor_print n1 = {scope=TBDscope; raw = CmdN (Parallelism (Atom n1))}
+
