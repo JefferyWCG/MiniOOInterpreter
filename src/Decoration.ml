@@ -1,18 +1,19 @@
-(* File Docoration.ml *)
+(* File Docoration.ml
+*)
 open Parsing
 open AST
 exception Excpetion of string
 
 let str1 ="
-var x; 
-  {x=5-2; 
+var x;
+  {x=5-2;
   {var y;y=x-1; x=100}
   };
 "
 let str2 = "
-var x; 
+var x;
   var y;
-    {var z; 
+    {var z;
       malloc(x);
       x=1};
 "
@@ -22,13 +23,29 @@ let str3 = "
     var y;
     {malloc(x); {x.Foo = Bar;{malloc (y);y.(x.Foo)=Quiz}}};"
 
-let str = "
+let str4 = "
   var x;
   var y;{
     malloc(y);
     {x = proc a:y.Foo=a;
     x(100)}};"
-let lexbuf = Lexing.from_string str 
+
+let str5 = "
+  var x;
+  {x=2;printf(x)};"
+
+let str = "
+  var x;
+    var y;
+  {x=0; {y=0;while x<100 then {x=x+1;y=y+x}}};"
+
+let (mode,lexbuf) =  match Array.length Sys.argv with
+|2-> (0, Lexing.from_string Sys.argv.(1))
+|3-> if( Sys.argv.(1)= "-m") then
+  (1, Lexing.from_string Sys.argv.(2))
+  else raise (Excpetion "Please pass correct argument to the program")
+|_-> raise (Excpetion "Please pass correct argument to the program")
+
 let startNode = Parser.prog Lexer.token lexbuf
 
 let setSymtable node symtab = node.scope<-Done {v=symtab; e=true}
@@ -47,32 +64,32 @@ let getSymtable node = match node with
 
 let rec checkScope varName symtab = match symtab with
 | [] -> print_string ("scope error "^varName); true
-| h::t -> if h = varName then false else checkScope varName t 
+| h::t -> if h = varName then false else checkScope varName t
 
 let checkScope varName node = checkScope varName (getSymtable node)
 
 let rec implementScope node =  match node with
 |{raw=CmdN cmdn; scope=_} ->
-  (match cmdn with 
-    |VarDeclrn (varName,subn) ->  
-      setSymtable subn (varName::getSymtable node); 
+  (match cmdn with
+    |VarDeclrn (varName,subn) ->
+      setSymtable subn (varName::getSymtable node);
       setScopeChecker node (implementScope subn)
     |ProcCalln (n1,n2) ->
       setSymtables [n1;n2] (getSymtable node);
       setScopeChecker node (implementScope n1||implementScope n2)
     |ObjAllocn varName -> setScopeChecker node (checkScope varName node)
-    |VarAssnn  (varn,n) ->  
+    |VarAssnn  (varn,n) ->
       setSymtable n (getSymtable node);
       setScopeChecker node ((implementScope n)||checkScope varn node)
-    |FieldAssnn (e1,e2,e3) -> 
+    |FieldAssnn (e1,e2,e3) ->
       setSymtables [e1;e2;e3] (getSymtable node);
-      setScopeChecker node (implementScope e1||implementScope e2||implementScope e3) 
+      setScopeChecker node (implementScope e1||implementScope e2||implementScope e3)
     |SeqCtrln seqn -> (
       match seqn with
         |IfStm (b,n1,n2)->
           setSymtables [b;n1;n2] (getSymtable node);
           setScopeChecker node (implementScope b||implementScope n1||implementScope n2)
-        |WhileStm (b,n) ->       
+        |WhileStm (b,n) ->
         setSymtables [b;n] (getSymtable node);
         setScopeChecker node (implementScope b||implementScope n)
         |TwoCmds (n1,n2) ->
@@ -85,14 +102,15 @@ let rec implementScope node =  match node with
         |Para (n1,n2) ->
           setSymtables [n1;n2] (getSymtable node);
           setScopeChecker node (implementScope n1||implementScope n2)
-        |Atom n -> setSymtable n []; setScopeChecker node (implementScope n)
+        |Atom n -> setSymtable n (getSymtable node); setScopeChecker node (implementScope n)
       )
-      |Print n -> setSymtable n []; setScopeChecker node (implementScope n)
+    |Print n -> setSymtable n (getSymtable node); setScopeChecker node (implementScope n)
     |_-> raise (Excpetion "scope error 138")
   )
 |{raw=Expn expn; scope=_} ->
   (match expn with
     |Fieldn _ -> setScopeChecker node false
+    |Parentheses n -> setSymtable n (getSymtable node); setScopeChecker node (implementScope n)
     |AriExpn arin -> (
       match arin with
         |Int num -> setScopeChecker node false
@@ -107,15 +125,15 @@ let rec implementScope node =  match node with
       match locn with
         |NULLn -> setScopeChecker node false
         |VarIdtn varn -> setScopeChecker node (checkScope varn node)
-        |FldExpn (n1,n2) -> 
+        |FldExpn (n1,n2) ->
           setSymtables [n1;n2] (getSymtable node);
           setScopeChecker node (implementScope n1||implementScope n2)
      )
     |ProcDcln (varn,n) ->
-      setSymtable n (getSymtable node);
-      setScopeChecker node ((implementScope n)||checkScope varn node)
+      setSymtable n (varn::getSymtable node);
+      setScopeChecker node (implementScope n)
   )
-| {raw=BoolExpN subn; scope=_} -> 
+| {raw=BoolExpN subn; scope=_} ->
   (match subn with
     |TorF _ -> setScopeChecker node false;
     |LessThann (n1,n2) ->
@@ -131,21 +149,21 @@ let rec implementScope node =  match node with
 let rec setScopeChecker node boolean = match node with
 |{raw=_; scope=Done record} ->
   record.e <- boolean;boolean
-|_-> print_string "error in assign scope checker ()\n"; boolean
+|_-> raise (Excpetion "error in assign scope checker ()\n")
 
 let getSymtable node = match node with
 |{raw=_; scope=Done {e= _; v}} -> v
 |_->print_string "error in assign getting Symtable\n"; []
 
 let rec checkScope varName symtab = match symtab with
-| [] -> print_string "scope error"; true
-| h::t -> if h = varName then false else checkScope varName t 
+| [] -> raise (Excpetion "error in assign scope checker ()\n")
+| h::t -> if h = varName then false else checkScope varName t
 
 let checkScope varName node = checkScope varName (getSymtable node)
 
 let rec printNode node =  match node with
 |{raw=CmdN cmdn; scope=_} ->
-  (match cmdn with 
+  (match cmdn with
     |VarDeclrn (varName,subn) -> "variable Declaration of "^varName
     |ProcCalln (n1,n2) -> "Procedure call"
     |ObjAllocn varName -> "malloc of: "^varName
@@ -164,11 +182,12 @@ let rec printNode node =  match node with
         |Atom n -> "atmoic"
       )
     |Block subn-> "Block"
-    |Print subn->"print"
+    |Print subn->"printf"
   )
 |{raw=Expn expn; scope=_} ->
   (match expn with
-    |Fieldn fld -> "field: "^fld 
+    |Fieldn fld -> "field: "^fld
+    |Parentheses _->"()"
     |AriExpn arin -> (
       match arin with
         |Int num -> string_of_int num
@@ -184,19 +203,22 @@ let rec printNode node =  match node with
      )
     |ProcDcln (varn,n) -> "procedure with parameter: "^varn
   )
-| {raw=BoolExpN subn; scope=_} -> 
+| {raw=BoolExpN subn; scope=_} ->
   (match subn with
     |TorF tf -> string_of_bool tf
     |LessThann (n1,n2) -> "less than"
     |Eql (n1,n2) -> "=="
   )
 | {raw=Start subn; scope=_} -> "start"
+
+
 let printNodeWithSymtab node = match node with
 |{raw=_; scope=  Done { v=symbTable; e=_ }} -> printNode node ^ ".    SymtableTable:"^ (List.fold_left (fun acc cur->acc^cur^"; ") "[" symbTable) ^"]"
 |_ -> "error in print symtable"
+
 let rec getSubNode node = match node with
 |{raw=CmdN cmdn; scope=_} ->
-  (match cmdn with 
+  (match cmdn with
     |VarDeclrn (varName,subn) -> [subn]
     |ProcCalln (n1,n2) -> [n1;n2]
     |ObjAllocn varName -> []
@@ -220,6 +242,7 @@ let rec getSubNode node = match node with
 |{raw=Expn expn; scope=_} ->
   (match expn with
     |Fieldn fld -> []
+    |Parentheses node -> [node]
     |AriExpn arin -> (
       match arin with
         |Int num -> []
@@ -235,7 +258,7 @@ let rec getSubNode node = match node with
      )
     |ProcDcln (varn,n) -> [n]
   )
-| {raw=BoolExpN subn; scope=_} -> 
+| {raw=BoolExpN subn; scope=_} ->
   (match subn with
     |TorF tf -> []
     |LessThann (n1,n2) -> [n1;n2]
@@ -252,6 +275,7 @@ let rec getSubNode node = match node with
    Print a tree or a DAG as tree, similarly to the 'tree' command.
   refernce  https://gist.github.com/mjambon/75f54d3c9f1a352b38a8eab81880a735
 *)
+
 open Printf
 let rec iter f = function
   | [] -> ()
@@ -291,15 +315,15 @@ let to_string ?line_prefix ~get_name ~get_children x =
   Buffer.contents buf
 
 
-let testPrint inputNode =
+let testPrint inputNode if_print_symbol=
   let tree =inputNode
   in
-  let get_name = printNode
+  let get_name = if if_print_symbol then printNodeWithSymtab else printNode
   in
   let get_children = getSubNode
   in
   let result = to_string ~line_prefix:"* " ~get_name ~get_children tree in
-  print_string result 
+  print_string ("print the AST with symbol tables" ^result^"\n\nsemantics transition:\n")
 ;;
-testPrint startNode
+testPrint startNode true
 

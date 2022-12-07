@@ -11,8 +11,8 @@ all:
 
 	ocamlc -o interpreter AST.cmo Lexer.cmo Parser.cmo Decoration.cmo  Domain.cmo Transition.cmo Interpreter.cmo
 
-	./interpreter
+
 
 delete:
 	rm -f parser.mli parser.ml lexer.ml 
-	rm -f *.cmi *.cmo interpreter
+	rm -f *.cmi *.cmo 

@@ -4,8 +4,8 @@ open Parser  (* Type token defined in parser.mli *)
 }
 rule token = parse
     [' ' '\t' '\n'] { token lexbuf } (* skip blanks and tabs *)
-    |"if"            {IF} 
-    |"while"         {WHILE} 
+    |"if"            {IF}
+    |"while"         {WHILE}
     |"else"          {ELSE}
     |"null"          {NULL}
     |"proc"          {PROC}
@@ -29,8 +29,9 @@ rule token = parse
     |"{"             {LBRACKET}
     |"}"            {RBRACKET}
     | "|||"          {PARA}
-    |"atmo"          {ATOM}
+    |"atom"          {ATOM}
     |"skip"          {SKIP}
+    |"end"           {END}
 
     |['0'-'9']+ as num   { INT (int_of_string num) }
     |(['A'-'Z'])(['a'-'z'] | ['A'-'Z'] | ['0'-'9'])* as idt  { FLD idt }

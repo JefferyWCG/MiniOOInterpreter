@@ -9,17 +9,17 @@ open AST
 
 (*key words and symbol tokens*)
 
-%token <int> INT 
-%token <bool> TorF  //    true/false 
-%token  LESSTHAN 
-%token EQL MINUS LPAREN RPAREN SEMICOLON COLON DOT  EOF  LBRACKET RBRACKET PARA ATOM SKIP EQLEQL TIMES PLUS PRINT
-%token IF WHILE ELSE NULL PROC MALLOC VAR THEN 
+%token <int> INT
+%token <bool> TorF  //    true/false
+%token  LESSTHAN
+%token EQL MINUS LPAREN RPAREN SEMICOLON COLON DOT EOF LBRACKET RBRACKET PARA ATOM SKIP EQLEQL TIMES PLUS PRINT END
+%token IF WHILE ELSE NULL PROC MALLOC VAR THEN
 
 %start prog                   /* the entry point */
-%type <AST.node>prog  
-%left MINUS PLUS          /* lowest precedence  */
-%left TIMES        /* lowest precedence  */
-%left EQL          /* medium precedence  */
+%type <AST.node>prog
+%left PLUS MINUS               /* lowest precedence  */
+%left TIMES              /* lowest precedence  */
+%left DOT
 
 
 (* non-terminal declaration *)
@@ -30,23 +30,24 @@ open AST
 %% /* rules */
 
 prog :
-    c1=cmd SEMICOLON EOF {startContructor(c1)} 
+    c1=cmd SEMICOLON EOF {startContructor(c1)}
 
 expr:
     fld=FLD                                     {expnConstructor_fld(fld)}
     |num=INT                                    {expnConstructor_ari_int num }
-    |n1=expr MINUS n2=expr                     {expnConstructor_ari_min (n1,n2) } 
-    |n1=expr PLUS n2=expr                     {expnConstructor_ari_plus (n1,n2) } 
-    |n1=expr TIMES n2=expr                     {expnConstructor_ari_times (n1,n2) } 
+    |n1=expr MINUS n2=expr                      {expnConstructor_ari_min (n1,n2) }
+    |n1=expr PLUS n2=expr                       {expnConstructor_ari_plus (n1,n2) }
+    |n1=expr TIMES n2=expr                      {expnConstructor_ari_times (n1,n2) }
     |NULL                                       {expnConstructor_loc_null}
     |str=VARidt                                 {expnConstructor_loc_var str}
-    |LPAREN n1=expr DOT n2=expr RPAREN          {expnConstructor_fldexp (n1,n2)} 
-    |PROC str=VARidt COLON n1=cmd               {expnConstructor_procDecl(str,n1)}
+    | n1=expr DOT n2=expr                       {expnConstructor_fldexp (n1,n2)}
+    |PROC str=VARidt COLON n1=cmd END           {expnConstructor_procDecl(str,n1)}
+    |LPAREN n1=expr RPAREN                      {expnConstructor_parentheses(n1)}
 
 boolExp :
      n1=expr LESSTHAN n2=expr                   {boolExpnConstructor_lessThan (n1,n2)}
-    |n1=expr EQLEQL n2=expr                   {boolExpnConstructor_eql (n1,n2)}
-    | tf=TorF                                   {boolExpnConstructor_TorF tf}
+    |n1=expr EQLEQL n2=expr                     {boolExpnConstructor_eql (n1,n2)}
+    |tf=TorF                                    {boolExpnConstructor_TorF tf}
 
 cmd:
     | VAR str=VARidt SEMICOLON n1=cmd           {cmdExpnConstructor_varDecl (str,n1)}  // variable declaration

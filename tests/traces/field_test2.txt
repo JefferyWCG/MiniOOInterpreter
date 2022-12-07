@@ -1,0 +1,1181 @@
+print the AST with symbol tables* start.    SymtableTable:[]
+* └── variable Declaration of x.    SymtableTable:[]
+*     └── variable Declaration of y.    SymtableTable:[x; ]
+*         └── variable Declaration of z.    SymtableTable:[y; x; ]
+*             └── variable Declaration of f.    SymtableTable:[z; y; x; ]
+*                 └── two commands.    SymtableTable:[f; z; y; x; ]
+*                     ├── malloc of: x.    SymtableTable:[f; z; y; x; ]
+*                     └── two commands.    SymtableTable:[f; z; y; x; ]
+*                         ├── malloc of: y.    SymtableTable:[f; z; y; x; ]
+*                         └── two commands.    SymtableTable:[f; z; y; x; ]
+*                             ├── malloc of: z.    SymtableTable:[f; z; y; x; ]
+*                             └── two commands.    SymtableTable:[f; z; y; x; ]
+*                                 ├── variable assignment of variable: f.    SymtableTable:[f; z; y; x; ]
+*                                 │   └── field: FOO.    SymtableTable:[f; z; y; x; ]
+*                                 └── two commands.    SymtableTable:[f; z; y; x; ]
+*                                     ├── filed assignment.    SymtableTable:[f; z; y; x; ]
+*                                     │   ├── x.    SymtableTable:[f; z; y; x; ]
+*                                     │   ├── f.    SymtableTable:[f; z; y; x; ]
+*                                     │   └── y.    SymtableTable:[f; z; y; x; ]
+*                                     └── two commands.    SymtableTable:[f; z; y; x; ]
+*                                         ├── filed assignment.    SymtableTable:[f; z; y; x; ]
+*                                         │   ├── field expression.    SymtableTable:[f; z; y; x; ]
+*                                         │   │   ├── x.    SymtableTable:[f; z; y; x; ]
+*                                         │   │   └── f.    SymtableTable:[f; z; y; x; ]
+*                                         │   ├── f.    SymtableTable:[f; z; y; x; ]
+*                                         │   └── field: QUX.    SymtableTable:[f; z; y; x; ]
+*                                         └── two commands.    SymtableTable:[f; z; y; x; ]
+*                                             ├── filed assignment.    SymtableTable:[f; z; y; x; ]
+*                                             │   ├── z.    SymtableTable:[f; z; y; x; ]
+*                                             │   ├── ().    SymtableTable:[f; z; y; x; ]
+*                                             │   │   └── field expression.    SymtableTable:[f; z; y; x; ]
+*                                             │   │       ├── ().    SymtableTable:[f; z; y; x; ]
+*                                             │   │       │   └── field expression.    SymtableTable:[f; z; y; x; ]
+*                                             │   │       │       ├── x.    SymtableTable:[f; z; y; x; ]
+*                                             │   │       │       └── f.    SymtableTable:[f; z; y; x; ]
+*                                             │   │       └── f.    SymtableTable:[f; z; y; x; ]
+*                                             │   └── field: QUIZ.    SymtableTable:[f; z; y; x; ]
+*                                             └── two commands.    SymtableTable:[f; z; y; x; ]
+*                                                 ├── printf.    SymtableTable:[f; z; y; x; ]
+*                                                 │   └── y.    SymtableTable:[f; z; y; x; ]
+*                                                 └── printf.    SymtableTable:[f; z; y; x; ]
+*                                                     └── z.    SymtableTable:[f; z; y; x; ]
+
+
+semantics transition:
+
+=====================================================================================
+Configuration after the transition step: 0
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── variable Declaration of y
+*     └── variable Declaration of z
+*         └── variable Declaration of f
+*             └── two commands
+*                 ├── malloc of: x
+*                 └── two commands
+*                     ├── malloc of: y
+*                     └── two commands
+*                         ├── malloc of: z
+*                         └── two commands
+*                             ├── variable assignment of variable: f
+*                             │   └── field: FOO
+*                             └── two commands
+*                                 ├── filed assignment
+*                                 │   ├── x
+*                                 │   ├── f
+*                                 │   └── y
+*                                 └── two commands
+*                                     ├── filed assignment
+*                                     │   ├── field expression
+*                                     │   │   ├── x
+*                                     │   │   └── f
+*                                     │   ├── f
+*                                     │   └── field: QUX
+*                                     └── two commands
+*                                         ├── filed assignment
+*                                         │   ├── z
+*                                         │   ├── ()
+*                                         │   │   └── field expression
+*                                         │   │       ├── ()
+*                                         │   │       │   └── field expression
+*                                         │   │       │       ├── x
+*                                         │   │       │       └── f
+*                                         │   │       └── f
+*                                         │   └── field: QUIZ
+*                                         └── two commands
+*                                             ├── printf
+*                                             │   └── y
+*                                             └── printf
+*                                                 └── z
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 1
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── variable Declaration of z
+*         └── variable Declaration of f
+*             └── two commands
+*                 ├── malloc of: x
+*                 └── two commands
+*                     ├── malloc of: y
+*                     └── two commands
+*                         ├── malloc of: z
+*                         └── two commands
+*                             ├── variable assignment of variable: f
+*                             │   └── field: FOO
+*                             └── two commands
+*                                 ├── filed assignment
+*                                 │   ├── x
+*                                 │   ├── f
+*                                 │   └── y
+*                                 └── two commands
+*                                     ├── filed assignment
+*                                     │   ├── field expression
+*                                     │   │   ├── x
+*                                     │   │   └── f
+*                                     │   ├── f
+*                                     │   └── field: QUX
+*                                     └── two commands
+*                                         ├── filed assignment
+*                                         │   ├── z
+*                                         │   ├── ()
+*                                         │   │   └── field expression
+*                                         │   │       ├── ()
+*                                         │   │       │   └── field expression
+*                                         │   │       │       ├── x
+*                                         │   │       │       └── f
+*                                         │   │       └── f
+*                                         │   └── field: QUIZ
+*                                         └── two commands
+*                                             ├── printf
+*                                             │   └── y
+*                                             └── printf
+*                                                 └── z
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 2
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── variable Declaration of f
+*             └── two commands
+*                 ├── malloc of: x
+*                 └── two commands
+*                     ├── malloc of: y
+*                     └── two commands
+*                         ├── malloc of: z
+*                         └── two commands
+*                             ├── variable assignment of variable: f
+*                             │   └── field: FOO
+*                             └── two commands
+*                                 ├── filed assignment
+*                                 │   ├── x
+*                                 │   ├── f
+*                                 │   └── y
+*                                 └── two commands
+*                                     ├── filed assignment
+*                                     │   ├── field expression
+*                                     │   │   ├── x
+*                                     │   │   └── f
+*                                     │   ├── f
+*                                     │   └── field: QUX
+*                                     └── two commands
+*                                         ├── filed assignment
+*                                         │   ├── z
+*                                         │   ├── ()
+*                                         │   │   └── field expression
+*                                         │   │       ├── ()
+*                                         │   │       │   └── field expression
+*                                         │   │       │       ├── x
+*                                         │   │       │       └── f
+*                                         │   │       └── f
+*                                         │   └── field: QUIZ
+*                                         └── two commands
+*                                             ├── printf
+*                                             │   └── y
+*                                             └── printf
+*                                                 └── z
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 3
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── malloc of: x
+*                 └── two commands
+*                     ├── malloc of: y
+*                     └── two commands
+*                         ├── malloc of: z
+*                         └── two commands
+*                             ├── variable assignment of variable: f
+*                             │   └── field: FOO
+*                             └── two commands
+*                                 ├── filed assignment
+*                                 │   ├── x
+*                                 │   ├── f
+*                                 │   └── y
+*                                 └── two commands
+*                                     ├── filed assignment
+*                                     │   ├── field expression
+*                                     │   │   ├── x
+*                                     │   │   └── f
+*                                     │   ├── f
+*                                     │   └── field: QUX
+*                                     └── two commands
+*                                         ├── filed assignment
+*                                         │   ├── z
+*                                         │   ├── ()
+*                                         │   │   └── field expression
+*                                         │   │       ├── ()
+*                                         │   │       │   └── field expression
+*                                         │   │       │       ├── x
+*                                         │   │       │       └── f
+*                                         │   │       └── f
+*                                         │   └── field: QUIZ
+*                                         └── two commands
+*                                             ├── printf
+*                                             │   └── y
+*                                             └── printf
+*                                                 └── z
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 4
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_5      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | object_ID_5
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── malloc of: y
+*                 └── two commands
+*                     ├── malloc of: z
+*                     └── two commands
+*                         ├── variable assignment of variable: f
+*                         │   └── field: FOO
+*                         └── two commands
+*                             ├── filed assignment
+*                             │   ├── x
+*                             │   ├── f
+*                             │   └── y
+*                             └── two commands
+*                                 ├── filed assignment
+*                                 │   ├── field expression
+*                                 │   │   ├── x
+*                                 │   │   └── f
+*                                 │   ├── f
+*                                 │   └── field: QUX
+*                                 └── two commands
+*                                     ├── filed assignment
+*                                     │   ├── z
+*                                     │   ├── ()
+*                                     │   │   └── field expression
+*                                     │   │       ├── ()
+*                                     │   │       │   └── field expression
+*                                     │   │       │       ├── x
+*                                     │   │       │       └── f
+*                                     │   │       └── f
+*                                     │   └── field: QUIZ
+*                                     └── two commands
+*                                         ├── printf
+*                                         │   └── y
+*                                         └── printf
+*                                             └── z
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 5
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_6      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+
+Object_ID_5      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | object_ID_6
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | object_ID_5
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── malloc of: z
+*                 └── two commands
+*                     ├── variable assignment of variable: f
+*                     │   └── field: FOO
+*                     └── two commands
+*                         ├── filed assignment
+*                         │   ├── x
+*                         │   ├── f
+*                         │   └── y
+*                         └── two commands
+*                             ├── filed assignment
+*                             │   ├── field expression
+*                             │   │   ├── x
+*                             │   │   └── f
+*                             │   ├── f
+*                             │   └── field: QUX
+*                             └── two commands
+*                                 ├── filed assignment
+*                                 │   ├── z
+*                                 │   ├── ()
+*                                 │   │   └── field expression
+*                                 │   │       ├── ()
+*                                 │   │       │   └── field expression
+*                                 │   │       │       ├── x
+*                                 │   │       │       └── f
+*                                 │   │       └── f
+*                                 │   └── field: QUIZ
+*                                 └── two commands
+*                                     ├── printf
+*                                     │   └── y
+*                                     └── printf
+*                                         └── z
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 6
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_7      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+
+Object_ID_6      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+
+Object_ID_5      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | object_ID_7
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | object_ID_6
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | object_ID_5
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: f
+*                 │   └── field: FOO
+*                 └── two commands
+*                     ├── filed assignment
+*                     │   ├── x
+*                     │   ├── f
+*                     │   └── y
+*                     └── two commands
+*                         ├── filed assignment
+*                         │   ├── field expression
+*                         │   │   ├── x
+*                         │   │   └── f
+*                         │   ├── f
+*                         │   └── field: QUX
+*                         └── two commands
+*                             ├── filed assignment
+*                             │   ├── z
+*                             │   ├── ()
+*                             │   │   └── field expression
+*                             │   │       ├── ()
+*                             │   │       │   └── field expression
+*                             │   │       │       ├── x
+*                             │   │       │       └── f
+*                             │   │       └── f
+*                             │   └── field: QUIZ
+*                             └── two commands
+*                                 ├── printf
+*                                 │   └── y
+*                                 └── printf
+*                                     └── z
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 7
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_7      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+
+Object_ID_6      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+
+Object_ID_5      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | FOO
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | object_ID_7
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | object_ID_6
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | object_ID_5
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── filed assignment
+*                 │   ├── x
+*                 │   ├── f
+*                 │   └── y
+*                 └── two commands
+*                     ├── filed assignment
+*                     │   ├── field expression
+*                     │   │   ├── x
+*                     │   │   └── f
+*                     │   ├── f
+*                     │   └── field: QUX
+*                     └── two commands
+*                         ├── filed assignment
+*                         │   ├── z
+*                         │   ├── ()
+*                         │   │   └── field expression
+*                         │   │       ├── ()
+*                         │   │       │   └── field expression
+*                         │   │       │       ├── x
+*                         │   │       │       └── f
+*                         │   │       └── f
+*                         │   └── field: QUIZ
+*                         └── two commands
+*                             ├── printf
+*                             │   └── y
+*                             └── printf
+*                                 └── z
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 8
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_5      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+                  FOO        | object_ID_6
+               --------------+-------------------
+
+Object_ID_7      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+
+Object_ID_6      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | FOO
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | object_ID_7
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | object_ID_6
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | object_ID_5
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── filed assignment
+*                 │   ├── field expression
+*                 │   │   ├── x
+*                 │   │   └── f
+*                 │   ├── f
+*                 │   └── field: QUX
+*                 └── two commands
+*                     ├── filed assignment
+*                     │   ├── z
+*                     │   ├── ()
+*                     │   │   └── field expression
+*                     │   │       ├── ()
+*                     │   │       │   └── field expression
+*                     │   │       │       ├── x
+*                     │   │       │       └── f
+*                     │   │       └── f
+*                     │   └── field: QUIZ
+*                     └── two commands
+*                         ├── printf
+*                         │   └── y
+*                         └── printf
+*                             └── z
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 9
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_6      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+                  FOO        | QUX
+               --------------+-------------------
+
+Object_ID_5      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+                  FOO        | object_ID_6
+               --------------+-------------------
+
+Object_ID_7      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | FOO
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | object_ID_7
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | object_ID_6
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | object_ID_5
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── filed assignment
+*                 │   ├── z
+*                 │   ├── ()
+*                 │   │   └── field expression
+*                 │   │       ├── ()
+*                 │   │       │   └── field expression
+*                 │   │       │       ├── x
+*                 │   │       │       └── f
+*                 │   │       └── f
+*                 │   └── field: QUIZ
+*                 └── two commands
+*                     ├── printf
+*                     │   └── y
+*                     └── printf
+*                         └── z
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 10
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_7      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+                  QUX        | QUIZ
+               --------------+-------------------
+
+Object_ID_6      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+                  FOO        | QUX
+               --------------+-------------------
+
+Object_ID_5      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+                  FOO        | object_ID_6
+               --------------+-------------------
+
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | FOO
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | object_ID_7
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | object_ID_6
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | object_ID_5
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── printf
+*                 │   └── y
+*                 └── printf
+*                     └── z
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 11
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_7      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+                  QUX        | QUIZ
+               --------------+-------------------
+
+Object_ID_6      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+                  FOO        | QUX
+               --------------+-------------------
+
+Object_ID_5      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+                  FOO        | object_ID_6
+               --------------+-------------------
+
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | FOO
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | object_ID_7
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | object_ID_6
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | object_ID_5
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── printf
+*                 └── z
+
+
+semantics transition:
+
+the cumulative print-space:
+ object_ID_6 
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 12
+program terminates without error
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_7      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+                  QUX        | QUIZ
+               --------------+-------------------
+
+Object_ID_6      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+                  FOO        | QUX
+               --------------+-------------------
+
+Object_ID_5      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+                  FOO        | object_ID_6
+               --------------+-------------------
+
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | FOO
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | object_ID_7
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | object_ID_6
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | object_ID_5
+               --------------+-------------------
+
+----------------------------------------------------
+
+
+the cumulative print-space:
+ object_ID_6  object_ID_7 
+
+=====================================================================================

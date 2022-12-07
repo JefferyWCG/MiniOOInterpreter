@@ -1,0 +1,3832 @@
+print the AST with symbol tables* start.    SymtableTable:[]
+* └── variable Declaration of x.    SymtableTable:[]
+*     └── variable Declaration of y.    SymtableTable:[x; ]
+*         └── variable Declaration of z.    SymtableTable:[y; x; ]
+*             └── two commands.    SymtableTable:[z; y; x; ]
+*                 ├── variable assignment of variable: z.    SymtableTable:[z; y; x; ]
+*                 │   └── procedure with parameter: a.    SymtableTable:[z; y; x; ]
+*                 │       └── while statement.    SymtableTable:[a; z; y; x; ]
+*                 │           ├── less than.    SymtableTable:[a; z; y; x; ]
+*                 │           │   ├── x.    SymtableTable:[a; z; y; x; ]
+*                 │           │   └── a.    SymtableTable:[a; z; y; x; ]
+*                 │           └── two commands.    SymtableTable:[a; z; y; x; ]
+*                 │               ├── variable assignment of variable: x.    SymtableTable:[a; z; y; x; ]
+*                 │               │   └── plus expression.    SymtableTable:[a; z; y; x; ]
+*                 │               │       ├── x.    SymtableTable:[a; z; y; x; ]
+*                 │               │       └── 1.    SymtableTable:[a; z; y; x; ]
+*                 │               └── variable assignment of variable: y.    SymtableTable:[a; z; y; x; ]
+*                 │                   └── plus expression.    SymtableTable:[a; z; y; x; ]
+*                 │                       ├── y.    SymtableTable:[a; z; y; x; ]
+*                 │                       └── x.    SymtableTable:[a; z; y; x; ]
+*                 └── two commands.    SymtableTable:[z; y; x; ]
+*                     ├── variable assignment of variable: x.    SymtableTable:[z; y; x; ]
+*                     │   └── 0.    SymtableTable:[z; y; x; ]
+*                     └── two commands.    SymtableTable:[z; y; x; ]
+*                         ├── variable assignment of variable: y.    SymtableTable:[z; y; x; ]
+*                         │   └── 0.    SymtableTable:[z; y; x; ]
+*                         └── Procedure call.    SymtableTable:[z; y; x; ]
+*                             ├── z.    SymtableTable:[z; y; x; ]
+*                             └── 15.    SymtableTable:[z; y; x; ]
+
+
+semantics transition:
+
+=====================================================================================
+Configuration after the transition step: 0
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── variable Declaration of y
+*     └── variable Declaration of z
+*         └── two commands
+*             ├── variable assignment of variable: z
+*             │   └── procedure with parameter: a
+*             │       └── while statement
+*             │           ├── less than
+*             │           │   ├── x
+*             │           │   └── a
+*             │           └── two commands
+*             │               ├── variable assignment of variable: x
+*             │               │   └── plus expression
+*             │               │       ├── x
+*             │               │       └── 1
+*             │               └── variable assignment of variable: y
+*             │                   └── plus expression
+*             │                       ├── y
+*             │                       └── x
+*             └── two commands
+*                 ├── variable assignment of variable: x
+*                 │   └── 0
+*                 └── two commands
+*                     ├── variable assignment of variable: y
+*                     │   └── 0
+*                     └── Procedure call
+*                         ├── z
+*                         └── 15
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 1
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── variable Declaration of z
+*         └── two commands
+*             ├── variable assignment of variable: z
+*             │   └── procedure with parameter: a
+*             │       └── while statement
+*             │           ├── less than
+*             │           │   ├── x
+*             │           │   └── a
+*             │           └── two commands
+*             │               ├── variable assignment of variable: x
+*             │               │   └── plus expression
+*             │               │       ├── x
+*             │               │       └── 1
+*             │               └── variable assignment of variable: y
+*             │                   └── plus expression
+*             │                       ├── y
+*             │                       └── x
+*             └── two commands
+*                 ├── variable assignment of variable: x
+*                 │   └── 0
+*                 └── two commands
+*                     ├── variable assignment of variable: y
+*                     │   └── 0
+*                     └── Procedure call
+*                         ├── z
+*                         └── 15
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 2
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── two commands
+*             ├── variable assignment of variable: z
+*             │   └── procedure with parameter: a
+*             │       └── while statement
+*             │           ├── less than
+*             │           │   ├── x
+*             │           │   └── a
+*             │           └── two commands
+*             │               ├── variable assignment of variable: x
+*             │               │   └── plus expression
+*             │               │       ├── x
+*             │               │       └── 1
+*             │               └── variable assignment of variable: y
+*             │                   └── plus expression
+*             │                       ├── y
+*             │                       └── x
+*             └── two commands
+*                 ├── variable assignment of variable: x
+*                 │   └── 0
+*                 └── two commands
+*                     ├── variable assignment of variable: y
+*                     │   └── 0
+*                     └── Procedure call
+*                         ├── z
+*                         └── 15
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 3
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── two commands
+*             ├── variable assignment of variable: x
+*             │   └── 0
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── 0
+*                 └── Procedure call
+*                     ├── z
+*                     └── 15
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 4
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 0
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── two commands
+*             ├── variable assignment of variable: y
+*             │   └── 0
+*             └── Procedure call
+*                 ├── z
+*                 └── 15
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 5
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 0
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 0
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Procedure call
+*             ├── z
+*             └── 15
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 6
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 0
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 0
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 7
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 0
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 0
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 8
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 0
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 1
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 9
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 1
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 1
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 10
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 1
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 1
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 11
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 1
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 2
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 12
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 3
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 2
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 13
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 3
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 2
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 14
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 3
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 3
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 15
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 6
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 3
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 16
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 6
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 3
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 17
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 6
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 4
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 18
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 10
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 4
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 19
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 10
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 4
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 20
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 10
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 5
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 21
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 5
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 22
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 5
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 23
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 6
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 24
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 21
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 6
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 25
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 21
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 6
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 26
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 21
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 7
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 27
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 28
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 7
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 28
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 28
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 7
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 29
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 28
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 8
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 30
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 36
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 8
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 31
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 36
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 8
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 32
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 36
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 9
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 33
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 45
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 9
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 34
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 45
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 9
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 35
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 45
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 10
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 36
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 55
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 10
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 37
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 55
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 10
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 38
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 55
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 11
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 39
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 66
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 11
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 40
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 66
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 11
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 41
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 66
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 12
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 42
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 78
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 12
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 43
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 78
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 12
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 44
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 78
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 13
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 45
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 91
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 13
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 46
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 91
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 13
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 47
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 91
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 14
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 48
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 105
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 14
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 49
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 105
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 14
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── two commands
+*                 │   ├── variable assignment of variable: x
+*                 │   │   └── plus expression
+*                 │   │       ├── x
+*                 │   │       └── 1
+*                 │   └── variable assignment of variable: y
+*                 │       └── plus expression
+*                 │           ├── y
+*                 │           └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 50
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 105
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── two commands
+*                 ├── variable assignment of variable: y
+*                 │   └── plus expression
+*                 │       ├── y
+*                 │       └── x
+*                 └── while statement
+*                     ├── less than
+*                     │   ├── x
+*                     │   └── a
+*                     └── two commands
+*                         ├── variable assignment of variable: x
+*                         │   └── plus expression
+*                         │       ├── x
+*                         │       └── 1
+*                         └── variable assignment of variable: y
+*                             └── plus expression
+*                                 ├── y
+*                                 └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 51
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | z             | Object_ID_3    |
++----------+---------------+----------------+
+| Call     | a             | Object_ID_4    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 120
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables* Block
+* └── Block
+*     └── Block
+*         └── Block
+*             └── while statement
+*                 ├── less than
+*                 │   ├── x
+*                 │   └── a
+*                 └── two commands
+*                     ├── variable assignment of variable: x
+*                     │   └── plus expression
+*                     │       ├── x
+*                     │       └── 1
+*                     └── variable assignment of variable: y
+*                         └── plus expression
+*                             ├── y
+*                             └── x
+
+
+semantics transition:
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 52
+program terminates without error
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | Closure(a ...)
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | 120
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | 15
+               --------------+-------------------
+
+----------------------------------------------------
+
+
+the cumulative print-space:
+
+
+=====================================================================================
