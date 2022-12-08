@@ -1,5 +1,7 @@
 # An Interpreter for MiniOO 
-This is an interpreter of a Mini Object-Oriented Language. The Project if for the personal project in HPL (2022-fall) by Jeffery Wang.
+This is an interpreter of a Mini Object-Oriented Language. The Project if for the personal project in HPL (2022-fall) by.  
+Jeffery Wang  
+email: jefferywcg@gmail.com
 ## Overview
 ![overview1](https://user-images.githubusercontent.com/98352935/206552548-10b8f656-4753-4b0d-a5e6-14cb7aaae926.svg)
 
@@ -32,3 +34,32 @@ The environment for the interpreter includes ocamlc, menhir, and ocamllex.
     * ```Transition.ml``` - includes functions for small-step semantic transitions, evaluation of expression and bool expression.
     * ```Interpreter.ml``` - is the actually computing place for the program, it will iteratively do the small-step semantic transitions until termination, and print the results. 
 
+* To write the program and run it with the interpreter 
+  * replace the content ```./user.txt``` with user-supplied code, then run the scripts ```./run.sh``` or ```./run.sh -m```.  
+  * there are two different trace modes for the interpreter, one includes the ```-m``` flag one without.
+     - try ```./run``` to run trace mode 0 where the trace only include the AST, things that is explicitly printed by ```printf```,the stack and heap upon termination (the stack is meant to be empty if the program terminate without error). 
+     - try ```./run -m``` to run trace mode 1 that will print a complete trace include the configuration and the __cumulative print space__ for each step. of semantic transition 
+    
+## Test cases and traces specification of Interpreter
+### Test cases
+There have been already 13 tests divided into 6 catagories aim to test the the correctness of interpreter in a comprehensive way. The test code and code specification of these 13 tests is in ```./tests/tests_get_trace``` and traces are saved in ```./tests/trace```. These tests are designed to cover all aspects of the features in miniOO. However there are not perfectly draconian and the user should feel free to write their own tests. 
+* Here are a brief specification of each tests 
+  * arithmatic tests
+    - ```arithmatic_test1``` - compute the result of (1+(2+3)*2) and print it. It eventually prints 11 in the __cumulative print space__
+  * control flow tests
+    - ```ctlFlow_test1``` - iteratively compute the sum from 1 to 15 and stored it to variable ```z```. Eventually ```z.val``` will be 120
+    - ```ctlFlow_test2``` - aims to do the same thing as test1, but in a tail recursive way
+    - ```ctlFlow_test3``` - print 1 to 10, then print 10 to 1 by recursion. The __cumulative print space__ should be ``` 1  2  3  4  5  6  7  8  9  10  10  9  8  7  6  5  4  3  2  1``` upon termination
+   * field expression and assignment tests
+     - ```field_test1``` - create objects  x,y,z and compute the sum of x."FOO"+ y."FOO", then store it to z."Foo" and print it.
+     - ```field_test2``` - does a nested field assignment and to assign ```x.Foo.Foo.Foo = 10```, then print it. 
+   * parallelism tests
+     - ```parallel_test1``` - creates two interleaving control flow of race condition on variable x, the result print(x) is non-deterministic
+     - ```parallel_test2``` - creates a race condition on variable x, However, the operation is mutative(idempotent), so eventually print(x) will print 15
+     - ```parallel_test3``` - tests atomic, similar to test 1 but both control flow is atomic the result print(x) is either "110 000 000 000" or "10 000 000 010"
+    * scope error tests
+      - ```scope_error_test1``` - tests scope error by using variable not decline
+      - ```scope_error_test2``` - tests scope error by using variable declared but not in scope
+     * run-time error tests
+      - ```runtime_error_test1``` - assign(access) a field of a non-Object variable
+      - ```runtime_error_test2``` - assign a non-assigned field of a Object to a variable 
