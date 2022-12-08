@@ -22,9 +22,13 @@ The Syntax and Semantics of MiniOO are based on the MiniOO syntax&semantics in .
   
   ## Details of code and the guide to use the interpreter 
   The interpreter is implemented purely in OCaml. The implementation details of the MiniOO interpreter are in the directory __./src__. The compile and link detail is in ./src/makefile. To compile and test the code, run ```cd src``` and ```make```. 
-The environment for the interpreter includes ocamlc, menhir, and ocamllex.  
-       Here are a list of brief descriptions of each files inside __./src__ directory.
-* ```AST.ml``` - defines the data structures and contructors for the Abstract Syntax Tree
-* ```Lexer.mll``` - defines the lexer for recognizing tokens
-* ```Parser.mly``` - defines the context-free Grammer for parsing
+The environment for the interpreter includes ocamlc, menhir, and ocamllex.
+* Here are a list of brief descriptions of each files inside __./src__ directory.
+    * ```AST.ml``` - includs the data structures and contructors for the Abstract Syntax Tree
+    * ```Lexer.mll``` - defines the lexer for recognizing tokens
+    * ```Parser.mly``` - defines the context-free Grammer for parsing
+    * ```Decoration.mly``` - includs functions for construction of decorated AST, including getting symbol tables and, checking scope, printing decorated AST
+    * ```Demain.ml``` - defines the semantics domain, and helper functions for semantic transitions
+    * ```Transition.ml``` - includes functions for small-step semantic transitions, evaluation of expression and bool expression.
+    * ```Interpreter.ml``` - is the actually computing place for the program, it will iteratively do the small-step semantic transitions until termination, and print the results. 
 
