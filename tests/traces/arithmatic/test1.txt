@@ -1,0 +1,35 @@
+print the AST with symbol tables
+* start.    SymtableTable:[]
+* └── printf.    SymtableTable:[]
+*     └── plus expression.    SymtableTable:[]
+*         ├── 1.    SymtableTable:[]
+*         └── times expression.    SymtableTable:[]
+*             ├── ().    SymtableTable:[]
+*             │   └── plus expression.    SymtableTable:[]
+*             │       ├── 2.    SymtableTable:[]
+*             │       └── 3.    SymtableTable:[]
+*             └── 2.    SymtableTable:[]
+
+
+semantics transition:
+
+=====================================================================================
+Configuration after the transition step: 0
+program terminates without error
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+----------------------------------------------------
+
+
+the cumulative print-space:
+ 11 
+
+=====================================================================================

@@ -1,0 +1,176 @@
+print the AST with symbol tables
+* start.    SymtableTable:[]
+* └── variable Declaration of x.    SymtableTable:[]
+*     └── variable Declaration of f.    SymtableTable:[x; ]
+*         └── two commands.    SymtableTable:[f; x; ]
+*             ├── variable assignment of variable: f.    SymtableTable:[f; x; ]
+*             │   └── field: FOO.    SymtableTable:[f; x; ]
+*             └── filed assignment.    SymtableTable:[f; x; ]
+*                 ├── x.    SymtableTable:[f; x; ]
+*                 ├── f.    SymtableTable:[f; x; ]
+*                 └── 1.    SymtableTable:[f; x; ]
+
+
+semantics transition:
+
+=====================================================================================
+Configuration after the transition step: 0
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables
+* Block
+* └── variable Declaration of f
+*     └── two commands
+*         ├── variable assignment of variable: f
+*         │   └── field: FOO
+*         └── filed assignment
+*             ├── x
+*             ├── f
+*             └── 1
+
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 1
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_2    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables
+* Block
+* └── Block
+*     └── two commands
+*         ├── variable assignment of variable: f
+*         │   └── field: FOO
+*         └── filed assignment
+*             ├── x
+*             ├── f
+*             └── 1
+
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 2
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_2    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | FOO
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables
+* Block
+* └── Block
+*     └── filed assignment
+*         ├── x
+*         ├── f
+*         └── 1
+
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 3program terminates because of error
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_2    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | FOO
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+----------------------------------------------------
+
+
+the cumulative print-space:
+
+
+=====================================================================================

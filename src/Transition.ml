@@ -43,6 +43,7 @@ let rec eval exp st hp= match exp with
   |ProcDcln (varName, {raw=CmdN cmdn;  scope=_}) -> Value (CloVal (Clo (varName,(Cmd cmdn), st)))
   |_-> raise (Excpetion "evaluation error, this should never happen")
 
+
 let rec bool_eval (exp:boolexpn) st hp= match exp with
   |TorF b -> if b then True else False
   |LessThann ({raw=Expn exp1;  scope=_},{raw=Expn exp2;  scope=_}) ->
@@ -58,6 +59,11 @@ let rec bool_eval (exp:boolexpn) st hp= match exp with
   |_->raise (Excpetion " boolean evaluation error")
 
 
+
+
+
+
+(* the main function for small-step semantics transition *)
 let rec transition control st hp  =  match control with
 |Cmd command->
   (match command with
@@ -124,19 +130,43 @@ let rec transition control st hp  =  match control with
 
         |SKIP ->  StateConfig (st,hp)
         |_-> raise (Excpetion "transition error in squential control, this should never happen")
+
     );
     |Parallelism subn ->(
       match subn with
-        |Para (n1,n2) ->
-          raise (Excpetion "TBD")
-        |Atom n ->  raise (Excpetion "TBD")
+        |Para  ({raw=CmdN subcmd1;  scope=keepScope1},{raw=CmdN subcmd2;  scope=keepScope2}) ->
+          if (Random.bool()) then
+            (match transition (Cmd subcmd1) st hp with
+            |ControlStateConfig (Cmd cmdn,(st1,hp1))-> ControlStateConfig (Cmd (Parallelism (Para ({raw=CmdN cmdn;  scope=keepScope1},{raw=CmdN subcmd2;  scope=keepScope2}))),(st1,hp1))
+            |StateConfig (st1,hp1)-> ControlStateConfig (Cmd subcmd2,(st1,hp1))
+            |ERROR->ERROR)
+          else
+            (match transition (Cmd subcmd2) st hp with
+            |ControlStateConfig (Cmd cmdn,(st1,hp1))-> ControlStateConfig (Cmd (Parallelism (Para ({raw=CmdN subcmd1;  scope=keepScope1},{raw=CmdN cmdn;  scope=keepScope2}))),(st1,hp1))
+            |StateConfig (st1,hp1)-> ControlStateConfig (Cmd subcmd1,(st1,hp1))
+            |ERROR->ERROR)
+
+        |Atom {raw=CmdN cmdN;  scope=keepScope1} ->
+          (* the atomic transition, repeat the transition until terminate *)
+          (*used for "atom" in parallelism control flow *)
+          let rec atom_transition control st hp =
+            (let config = transition control st hp in
+              match config with
+                |ControlStateConfig (ctl,(st1,hp1))-> atom_transition ctl st1 hp1
+                |StateConfig config1 -> StateConfig config1
+                |ERROR -> ERROR) in atom_transition (Cmd cmdN) st hp
+
+        |_-> raise (Excpetion"transition error in parallelism, this should never happen")
       )
+
     |Block {raw=CmdN subcmd;  scope=keepScope} ->
       (match transition (Cmd subcmd) st hp with
       |ControlStateConfig (Cmd newCmdn,(st1,hp1))-> ControlStateConfig (Cmd (Block ({raw=CmdN newCmdn;  scope=keepScope})),(st1,hp1))
       |StateConfig (Decl env::st1,hp1)-> StateConfig ((st1,hp1))
       |StateConfig (Call (env,st2)::st1,hp1)-> StateConfig ((st2,hp1))
+      |ERROR -> ERROR
       |_->raise (Excpetion "transition error in block "))
+
     |Print {raw=Expn exp1;  scope=keepScope1} ->
        let e1 = eval exp1 st hp in
         let str = printTva e1 in

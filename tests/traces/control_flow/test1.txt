@@ -1,4 +1,5 @@
-print the AST with symbol tables* start.    SymtableTable:[]
+print the AST with symbol tables
+* start.    SymtableTable:[]
 * └── variable Declaration of x.    SymtableTable:[]
 *     └── variable Declaration of y.    SymtableTable:[x; ]
 *         └── variable Declaration of z.    SymtableTable:[y; x; ]
@@ -53,7 +54,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── variable Declaration of y
 *     └── variable Declaration of z
 *         └── two commands
@@ -82,8 +84,6 @@ print the AST with symbol tables* Block
 *                         ├── z
 *                         └── 15
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -119,7 +119,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── variable Declaration of z
 *         └── two commands
@@ -148,8 +149,6 @@ print the AST with symbol tables* Block
 *                         ├── z
 *                         └── 15
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -192,7 +191,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── two commands
@@ -221,8 +221,6 @@ print the AST with symbol tables* Block
 *                         ├── z
 *                         └── 15
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -265,7 +263,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── two commands
@@ -278,8 +277,6 @@ print the AST with symbol tables* Block
 *                     ├── z
 *                     └── 15
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -322,7 +319,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── two commands
@@ -332,8 +330,6 @@ print the AST with symbol tables* Block
 *                 ├── z
 *                 └── 15
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -376,15 +372,14 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Procedure call
 *             ├── z
 *             └── 15
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -434,7 +429,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -452,8 +448,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -503,7 +497,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -531,8 +526,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -582,7 +575,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -605,8 +599,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -656,7 +648,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -674,8 +667,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -725,7 +716,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -753,8 +745,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -804,7 +794,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -827,8 +818,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -878,7 +867,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -896,8 +886,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -947,7 +935,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -975,8 +964,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1026,7 +1013,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -1049,8 +1037,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1100,7 +1086,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -1118,8 +1105,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1169,7 +1154,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -1197,8 +1183,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1248,7 +1232,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -1271,8 +1256,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1322,7 +1305,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -1340,8 +1324,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1391,7 +1373,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -1419,8 +1402,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1470,7 +1451,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -1493,8 +1475,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1544,7 +1524,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -1562,8 +1543,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1613,7 +1592,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -1641,8 +1621,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1692,7 +1670,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -1715,8 +1694,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1766,7 +1743,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -1784,8 +1762,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1835,7 +1811,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -1863,8 +1840,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1914,7 +1889,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -1937,8 +1913,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -1988,7 +1962,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2006,8 +1981,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -2057,7 +2030,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2085,8 +2059,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -2136,7 +2108,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2159,8 +2132,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -2210,7 +2181,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2228,8 +2200,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -2279,7 +2249,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2307,8 +2278,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -2358,7 +2327,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2381,8 +2351,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -2432,7 +2400,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2450,8 +2419,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -2501,7 +2468,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2529,8 +2497,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -2580,7 +2546,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2603,8 +2570,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -2654,7 +2619,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2672,8 +2638,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -2723,7 +2687,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2751,8 +2716,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -2802,7 +2765,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2825,8 +2789,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -2876,7 +2838,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2894,8 +2857,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -2945,7 +2906,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -2973,8 +2935,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -3024,7 +2984,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -3047,8 +3008,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -3098,7 +3057,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -3116,8 +3076,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -3167,7 +3125,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -3195,8 +3154,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -3246,7 +3203,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -3269,8 +3227,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -3320,7 +3276,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -3338,8 +3295,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -3389,7 +3344,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -3417,8 +3373,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -3468,7 +3422,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -3491,8 +3446,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -3542,7 +3495,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -3560,8 +3514,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -3611,7 +3563,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -3639,8 +3592,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -3690,7 +3641,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -3713,8 +3665,6 @@ print the AST with symbol tables* Block
 *                                 ├── y
 *                                 └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 
@@ -3764,7 +3714,8 @@ Object_ID_1      field       | value
 ----------------------------------------------------
 
 current control
-print the AST with symbol tables* Block
+print the AST with symbol tables
+* Block
 * └── Block
 *     └── Block
 *         └── Block
@@ -3782,8 +3733,6 @@ print the AST with symbol tables* Block
 *                             ├── y
 *                             └── x
 
-
-semantics transition:
 
 the cumulative print-space:
 

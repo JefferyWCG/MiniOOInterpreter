@@ -4,40 +4,6 @@ open Parsing
 open AST
 exception Excpetion of string
 
-let str1 ="
-var x;
-  {x=5-2;
-  {var y;y=x-1; x=100}
-  };
-"
-let str2 = "
-var x;
-  var y;
-    {var z;
-      malloc(x);
-      x=1};
-"
-
-let str3 = "
-  var x;
-    var y;
-    {malloc(x); {x.Foo = Bar;{malloc (y);y.(x.Foo)=Quiz}}};"
-
-let str4 = "
-  var x;
-  var y;{
-    malloc(y);
-    {x = proc a:y.Foo=a;
-    x(100)}};"
-
-let str5 = "
-  var x;
-  {x=2;printf(x)};"
-
-let str = "
-  var x;
-    var y;
-  {x=0; {y=0;while x<100 then {x=x+1;y=y+x}}};"
 
 let (mode,lexbuf) =  match Array.length Sys.argv with
 |2-> (0, Lexing.from_string Sys.argv.(1))
@@ -63,7 +29,7 @@ let getSymtable node = match node with
 |_->print_string "error in assign getting Symtable\n"; []
 
 let rec checkScope varName symtab = match symtab with
-| [] -> print_string ("scope error "^varName); true
+| [] -> raise (Excpetion ("scope error "^varName))
 | h::t -> if h = varName then false else checkScope varName t
 
 let checkScope varName node = checkScope varName (getSymtable node)
@@ -323,7 +289,8 @@ let testPrint inputNode if_print_symbol=
   let get_children = getSubNode
   in
   let result = to_string ~line_prefix:"* " ~get_name ~get_children tree in
-  print_string ("print the AST with symbol tables" ^result^"\n\nsemantics transition:\n")
+  print_string ("print the AST with symbol tables\n" ^result^"\n")
 ;;
-testPrint startNode true
+testPrint startNode true;
+print_string "\nsemantics transition:\n"
 
