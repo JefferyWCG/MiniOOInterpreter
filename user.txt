@@ -1,0 +1,10 @@
+var x;
+  {x = proc a:
+    if a==11 then skip
+    else
+      {printf(a);
+      {x(a+1);
+      printf(a)}}
+  end;
+  x(1)
+  };
