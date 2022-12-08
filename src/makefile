@@ -1,5 +1,5 @@
-all: 
-	ocamlc -c AST.ml 
+all:
+	ocamlc -c AST.ml
 
 	menhir Parser.mly
 	ocamllex Lexer.mll
@@ -10,9 +10,9 @@ all:
 	ocamlc -c Interpreter.ml
 
 	ocamlc -o interpreter AST.cmo Lexer.cmo Parser.cmo Decoration.cmo  Domain.cmo Transition.cmo Interpreter.cmo
-
+	cd .. && ./run.sh
 
 
 delete:
-	rm -f parser.mli parser.ml lexer.ml 
-	rm -f *.cmi *.cmo 
+	rm -f parser.mli parser.ml lexer.ml
+	rm -f *.cmi *.cmo
