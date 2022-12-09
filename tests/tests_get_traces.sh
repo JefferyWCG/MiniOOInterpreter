@@ -6,14 +6,14 @@ arithmatic_test1="printf(1+(2+3)*2);"
 
 
 # compute the sum from 1 to 15
-seq_test1="var x; var y; var z;
+ctlFlow_test1="var x; var y; var z;
   {z=proc a:while x<a then {x=x+1;y=y+x} end ;
    {x=0; {y=0;z(15)}}}; "
 
 
 
 # compute the sum from 1 to 15 using recursion (tail recursive)
-seq_test2="
+ctlFlow_test2="
 var x;
 var y;
 var z;
@@ -29,7 +29,7 @@ var z;
 
 
 # print 1 to 10 then print 10 to 1 using recursion
-seq_test3="
+ctlFlow_test3="
 var x;
   {x = proc a:
     if a==11 then skip
@@ -158,9 +158,9 @@ mkdir traces traces/arithmatic traces/control_flow traces/field traces/paralell 
 
 ../src/interpreter -m "$arithmatic_test1" > "$dir/arithmatic/test1.txt"
 
-../src/interpreter -m "$seq_test1" > "$dir/control_flow/test1.txt"
-../src/interpreter -m "$seq_test2" > "$dir/control_flow/test2.txt"
-../src/interpreter -m "$seq_test3" > "$dir/control_flow/test3.txt"
+../src/interpreter -m "$ctlFlow_test1" > "$dir/control_flow/test1.txt"
+../src/interpreter -m "$ctlFlow_test2" > "$dir/control_flow/test2.txt"
+../src/interpreter -m "$ctlFlow_test3" > "$dir/control_flow/test3.txt"
 
 ../src/interpreter -m "$field_test1" > "$dir/field/test1.txt"
 ../src/interpreter -m "$field_test2" > "$dir/field/test2.txt"
