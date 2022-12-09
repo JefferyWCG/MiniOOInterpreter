@@ -1,6 +1,6 @@
 # An Interpreter for MiniOO 
-This is an interpreter of a Mini Object-Oriented Language. The Project if for the personal project in HPL (2022-fall) by.  
-Jeffery Wang  
+This is an interpreter of a Mini Object-Oriented Language. The Project if for the personal project in HPL (2022-fall).  
+by Jeffery Wang  
 email: jefferywcg@gmail.com
 ## Overview
 ![overview1](https://user-images.githubusercontent.com/98352935/206552548-10b8f656-4753-4b0d-a5e6-14cb7aaae926.svg)
@@ -42,14 +42,14 @@ The environment for the interpreter includes ocamlc, menhir, and ocamllex.
     
 ## Test cases and traces specification of Interpreter
 ### Test cases
-There have been already 13 tests divided into 6 catagories aim to test the the correctness of interpreter in a comprehensive way. The test code and code specification of these 13 tests is in ```./tests/tests_get_trace``` and traces are saved in ```./tests/trace```. These tests are designed to cover all aspects of the features in miniOO. However there are not perfectly draconian and the user should feel free to write their own tests. 
+There have been already 13 tests divided into 6 catagories aim to test the the correctness of interpreter in a comprehensive way. The test code and code specification of these 13 tests is in [```./tests/tests_get_trace.sh```](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/tests/tests_get_traces.sh) and traces are saved in [```./tests/trace```]https://github.com/JefferyWCG/MiniOOInterpreter/tree/main/tests/traces. These tests are designed to cover all aspects of the features in miniOO. However there are not perfectly draconian and the user should feel free to write their own tests. 
 * Here are a brief specification of each tests 
   * arithmatic tests
     - ```arithmatic_test1``` - compute the result of (1+(2+3)*2) and print it. It eventually prints 11 in the __cumulative print space__
   * control flow tests
     - ```ctlFlow_test1``` - iteratively compute the sum from 1 to 15 and stored it to variable ```z```. Eventually ```z.val``` will be 120
     - ```ctlFlow_test2``` - aims to do the same thing as test1, but in a tail recursive way
-    - ```ctlFlow_test3``` - print 1 to 10, then print 10 to 1 by recursion. The __cumulative print space__ should be ``` 1  2  3  4  5  6  7  8  9  10  10  9  8  7  6  5  4  3  2  1``` upon termination
+    - ```ctlFlow_test3``` - print 1 to 10, then print 10 to 1 by recursion. The __cumulative print space__ should be 1  2  3  4  5  6  7  8  9  10  10  9  8  7  6  5  4  3  2  1 upon termination
    * field expression and assignment tests
      - ```field_test1``` - create objects  x,y,z and compute the sum of x."FOO"+ y."FOO", then store it to z."Foo" and print it.
      - ```field_test2``` - does a nested field assignment and to assign ```x.Foo.Foo.Foo = 10```, then print it. 
@@ -60,6 +60,17 @@ There have been already 13 tests divided into 6 catagories aim to test the the c
     * scope error tests
       - ```scope_error_test1``` - tests scope error by using variable not decline
       - ```scope_error_test2``` - tests scope error by using variable declared but not in scope
-     * run-time error tests
+    * run-time error tests
       - ```runtime_error_test1``` - assign(access) a field of a non-Object variable
       - ```runtime_error_test2``` - assign a non-assigned field of a Object to a variable 
+  
+  
+### Trace specification and examples
+Here is we the example of for [```ctlFlow_test1```](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/tests/traces/control_flow/test1.txt) to explain the specification of traces. 
+* [Decorated AST tree](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/tests/traces/control_flow/test1.txt#L2)
+<img width="751" alt="912C915E-5A79-48DA-8BAB-E06275EAFC7E" src="https://user-images.githubusercontent.com/98352935/206591871-e8156fc1-3d8f-4905-903d-8f6e361e7504.png">  
+
+* [Configuration after small-step transition of step 6](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/tests/traces/control_flow/test1.txt#L390)
+ <img width="594" alt="53EE9191-4CD5-44A5-8952-E3B55150D542" src="https://user-images.githubusercontent.com/98352935/206592199-4acfb8a0-e100-41ef-b41d-bc2fd816660d.png">
+ <img width="601" alt="1F91D862-56E9-4864-A65D-2B57EB05AF01" src="https://user-images.githubusercontent.com/98352935/206592213-cb788354-ae3a-4f71-ab0f-a35ce4279500.png">
+ <img width="606" alt="3BB168AC-0158-4467-BD4D-5FE11208997C" src="https://user-images.githubusercontent.com/98352935/206592224-3f3b7041-f6f9-414d-8d61-228cd3b8bc66.png">
