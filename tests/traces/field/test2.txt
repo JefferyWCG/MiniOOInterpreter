@@ -20,27 +20,22 @@ print the AST with symbol tables
 *                                     │   └── y.    SymtableTable:[f; z; y; x; ]
 *                                     └── two commands.    SymtableTable:[f; z; y; x; ]
 *                                         ├── filed assignment.    SymtableTable:[f; z; y; x; ]
-*                                         │   ├── field expression.    SymtableTable:[f; z; y; x; ]
-*                                         │   │   ├── x.    SymtableTable:[f; z; y; x; ]
-*                                         │   │   └── f.    SymtableTable:[f; z; y; x; ]
+*                                         │   ├── y.    SymtableTable:[f; z; y; x; ]
 *                                         │   ├── f.    SymtableTable:[f; z; y; x; ]
-*                                         │   └── field: QUX.    SymtableTable:[f; z; y; x; ]
+*                                         │   └── z.    SymtableTable:[f; z; y; x; ]
 *                                         └── two commands.    SymtableTable:[f; z; y; x; ]
 *                                             ├── filed assignment.    SymtableTable:[f; z; y; x; ]
 *                                             │   ├── z.    SymtableTable:[f; z; y; x; ]
-*                                             │   ├── ().    SymtableTable:[f; z; y; x; ]
-*                                             │   │   └── field expression.    SymtableTable:[f; z; y; x; ]
-*                                             │   │       ├── ().    SymtableTable:[f; z; y; x; ]
-*                                             │   │       │   └── field expression.    SymtableTable:[f; z; y; x; ]
-*                                             │   │       │       ├── x.    SymtableTable:[f; z; y; x; ]
-*                                             │   │       │       └── f.    SymtableTable:[f; z; y; x; ]
-*                                             │   │       └── f.    SymtableTable:[f; z; y; x; ]
-*                                             │   └── field: QUIZ.    SymtableTable:[f; z; y; x; ]
-*                                             └── two commands.    SymtableTable:[f; z; y; x; ]
-*                                                 ├── printf.    SymtableTable:[f; z; y; x; ]
-*                                                 │   └── y.    SymtableTable:[f; z; y; x; ]
-*                                                 └── printf.    SymtableTable:[f; z; y; x; ]
-*                                                     └── z.    SymtableTable:[f; z; y; x; ]
+*                                             │   ├── f.    SymtableTable:[f; z; y; x; ]
+*                                             │   └── 100.    SymtableTable:[f; z; y; x; ]
+*                                             └── printf.    SymtableTable:[f; z; y; x; ]
+*                                                 └── field expression.    SymtableTable:[f; z; y; x; ]
+*                                                     ├── field expression.    SymtableTable:[f; z; y; x; ]
+*                                                     │   ├── field expression.    SymtableTable:[f; z; y; x; ]
+*                                                     │   │   ├── x.    SymtableTable:[f; z; y; x; ]
+*                                                     │   │   └── f.    SymtableTable:[f; z; y; x; ]
+*                                                     │   └── f.    SymtableTable:[f; z; y; x; ]
+*                                                     └── f.    SymtableTable:[f; z; y; x; ]
 
 
 semantics transition:
@@ -88,27 +83,22 @@ print the AST with symbol tables
 *                                 │   └── y
 *                                 └── two commands
 *                                     ├── filed assignment
-*                                     │   ├── field expression
-*                                     │   │   ├── x
-*                                     │   │   └── f
+*                                     │   ├── y
 *                                     │   ├── f
-*                                     │   └── field: QUX
+*                                     │   └── z
 *                                     └── two commands
 *                                         ├── filed assignment
 *                                         │   ├── z
-*                                         │   ├── ()
-*                                         │   │   └── field expression
-*                                         │   │       ├── ()
-*                                         │   │       │   └── field expression
-*                                         │   │       │       ├── x
-*                                         │   │       │       └── f
-*                                         │   │       └── f
-*                                         │   └── field: QUIZ
-*                                         └── two commands
-*                                             ├── printf
-*                                             │   └── y
-*                                             └── printf
-*                                                 └── z
+*                                         │   ├── f
+*                                         │   └── 100
+*                                         └── printf
+*                                             └── field expression
+*                                                 ├── field expression
+*                                                 │   ├── field expression
+*                                                 │   │   ├── x
+*                                                 │   │   └── f
+*                                                 │   └── f
+*                                                 └── f
 
 
 the cumulative print-space:
@@ -166,27 +156,22 @@ print the AST with symbol tables
 *                                 │   └── y
 *                                 └── two commands
 *                                     ├── filed assignment
-*                                     │   ├── field expression
-*                                     │   │   ├── x
-*                                     │   │   └── f
+*                                     │   ├── y
 *                                     │   ├── f
-*                                     │   └── field: QUX
+*                                     │   └── z
 *                                     └── two commands
 *                                         ├── filed assignment
 *                                         │   ├── z
-*                                         │   ├── ()
-*                                         │   │   └── field expression
-*                                         │   │       ├── ()
-*                                         │   │       │   └── field expression
-*                                         │   │       │       ├── x
-*                                         │   │       │       └── f
-*                                         │   │       └── f
-*                                         │   └── field: QUIZ
-*                                         └── two commands
-*                                             ├── printf
-*                                             │   └── y
-*                                             └── printf
-*                                                 └── z
+*                                         │   ├── f
+*                                         │   └── 100
+*                                         └── printf
+*                                             └── field expression
+*                                                 ├── field expression
+*                                                 │   ├── field expression
+*                                                 │   │   ├── x
+*                                                 │   │   └── f
+*                                                 │   └── f
+*                                                 └── f
 
 
 the cumulative print-space:
@@ -251,27 +236,22 @@ print the AST with symbol tables
 *                                 │   └── y
 *                                 └── two commands
 *                                     ├── filed assignment
-*                                     │   ├── field expression
-*                                     │   │   ├── x
-*                                     │   │   └── f
+*                                     │   ├── y
 *                                     │   ├── f
-*                                     │   └── field: QUX
+*                                     │   └── z
 *                                     └── two commands
 *                                         ├── filed assignment
 *                                         │   ├── z
-*                                         │   ├── ()
-*                                         │   │   └── field expression
-*                                         │   │       ├── ()
-*                                         │   │       │   └── field expression
-*                                         │   │       │       ├── x
-*                                         │   │       │       └── f
-*                                         │   │       └── f
-*                                         │   └── field: QUIZ
-*                                         └── two commands
-*                                             ├── printf
-*                                             │   └── y
-*                                             └── printf
-*                                                 └── z
+*                                         │   ├── f
+*                                         │   └── 100
+*                                         └── printf
+*                                             └── field expression
+*                                                 ├── field expression
+*                                                 │   ├── field expression
+*                                                 │   │   ├── x
+*                                                 │   │   └── f
+*                                                 │   └── f
+*                                                 └── f
 
 
 the cumulative print-space:
@@ -343,27 +323,22 @@ print the AST with symbol tables
 *                                 │   └── y
 *                                 └── two commands
 *                                     ├── filed assignment
-*                                     │   ├── field expression
-*                                     │   │   ├── x
-*                                     │   │   └── f
+*                                     │   ├── y
 *                                     │   ├── f
-*                                     │   └── field: QUX
+*                                     │   └── z
 *                                     └── two commands
 *                                         ├── filed assignment
 *                                         │   ├── z
-*                                         │   ├── ()
-*                                         │   │   └── field expression
-*                                         │   │       ├── ()
-*                                         │   │       │   └── field expression
-*                                         │   │       │       ├── x
-*                                         │   │       │       └── f
-*                                         │   │       └── f
-*                                         │   └── field: QUIZ
-*                                         └── two commands
-*                                             ├── printf
-*                                             │   └── y
-*                                             └── printf
-*                                                 └── z
+*                                         │   ├── f
+*                                         │   └── 100
+*                                         └── printf
+*                                             └── field expression
+*                                                 ├── field expression
+*                                                 │   ├── field expression
+*                                                 │   │   ├── x
+*                                                 │   │   └── f
+*                                                 │   └── f
+*                                                 └── f
 
 
 the cumulative print-space:
@@ -438,27 +413,22 @@ print the AST with symbol tables
 *                             │   └── y
 *                             └── two commands
 *                                 ├── filed assignment
-*                                 │   ├── field expression
-*                                 │   │   ├── x
-*                                 │   │   └── f
+*                                 │   ├── y
 *                                 │   ├── f
-*                                 │   └── field: QUX
+*                                 │   └── z
 *                                 └── two commands
 *                                     ├── filed assignment
 *                                     │   ├── z
-*                                     │   ├── ()
-*                                     │   │   └── field expression
-*                                     │   │       ├── ()
-*                                     │   │       │   └── field expression
-*                                     │   │       │       ├── x
-*                                     │   │       │       └── f
-*                                     │   │       └── f
-*                                     │   └── field: QUIZ
-*                                     └── two commands
-*                                         ├── printf
-*                                         │   └── y
-*                                         └── printf
-*                                             └── z
+*                                     │   ├── f
+*                                     │   └── 100
+*                                     └── printf
+*                                         └── field expression
+*                                             ├── field expression
+*                                             │   ├── field expression
+*                                             │   │   ├── x
+*                                             │   │   └── f
+*                                             │   └── f
+*                                             └── f
 
 
 the cumulative print-space:
@@ -536,27 +506,22 @@ print the AST with symbol tables
 *                         │   └── y
 *                         └── two commands
 *                             ├── filed assignment
-*                             │   ├── field expression
-*                             │   │   ├── x
-*                             │   │   └── f
+*                             │   ├── y
 *                             │   ├── f
-*                             │   └── field: QUX
+*                             │   └── z
 *                             └── two commands
 *                                 ├── filed assignment
 *                                 │   ├── z
-*                                 │   ├── ()
-*                                 │   │   └── field expression
-*                                 │   │       ├── ()
-*                                 │   │       │   └── field expression
-*                                 │   │       │       ├── x
-*                                 │   │       │       └── f
-*                                 │   │       └── f
-*                                 │   └── field: QUIZ
-*                                 └── two commands
-*                                     ├── printf
-*                                     │   └── y
-*                                     └── printf
-*                                         └── z
+*                                 │   ├── f
+*                                 │   └── 100
+*                                 └── printf
+*                                     └── field expression
+*                                         ├── field expression
+*                                         │   ├── field expression
+*                                         │   │   ├── x
+*                                         │   │   └── f
+*                                         │   └── f
+*                                         └── f
 
 
 the cumulative print-space:
@@ -637,27 +602,22 @@ print the AST with symbol tables
 *                     │   └── y
 *                     └── two commands
 *                         ├── filed assignment
-*                         │   ├── field expression
-*                         │   │   ├── x
-*                         │   │   └── f
+*                         │   ├── y
 *                         │   ├── f
-*                         │   └── field: QUX
+*                         │   └── z
 *                         └── two commands
 *                             ├── filed assignment
 *                             │   ├── z
-*                             │   ├── ()
-*                             │   │   └── field expression
-*                             │   │       ├── ()
-*                             │   │       │   └── field expression
-*                             │   │       │       ├── x
-*                             │   │       │       └── f
-*                             │   │       └── f
-*                             │   └── field: QUIZ
-*                             └── two commands
-*                                 ├── printf
-*                                 │   └── y
-*                                 └── printf
-*                                     └── z
+*                             │   ├── f
+*                             │   └── 100
+*                             └── printf
+*                                 └── field expression
+*                                     ├── field expression
+*                                     │   ├── field expression
+*                                     │   │   ├── x
+*                                     │   │   └── f
+*                                     │   └── f
+*                                     └── f
 
 
 the cumulative print-space:
@@ -735,27 +695,22 @@ print the AST with symbol tables
 *                 │   └── y
 *                 └── two commands
 *                     ├── filed assignment
-*                     │   ├── field expression
-*                     │   │   ├── x
-*                     │   │   └── f
+*                     │   ├── y
 *                     │   ├── f
-*                     │   └── field: QUX
+*                     │   └── z
 *                     └── two commands
 *                         ├── filed assignment
 *                         │   ├── z
-*                         │   ├── ()
-*                         │   │   └── field expression
-*                         │   │       ├── ()
-*                         │   │       │   └── field expression
-*                         │   │       │       ├── x
-*                         │   │       │       └── f
-*                         │   │       └── f
-*                         │   └── field: QUIZ
-*                         └── two commands
-*                             ├── printf
-*                             │   └── y
-*                             └── printf
-*                                 └── z
+*                         │   ├── f
+*                         │   └── 100
+*                         └── printf
+*                             └── field expression
+*                                 ├── field expression
+*                                 │   ├── field expression
+*                                 │   │   ├── x
+*                                 │   │   └── f
+*                                 │   └── f
+*                                 └── f
 
 
 the cumulative print-space:
@@ -830,27 +785,22 @@ print the AST with symbol tables
 *         └── Block
 *             └── two commands
 *                 ├── filed assignment
-*                 │   ├── field expression
-*                 │   │   ├── x
-*                 │   │   └── f
+*                 │   ├── y
 *                 │   ├── f
-*                 │   └── field: QUX
+*                 │   └── z
 *                 └── two commands
 *                     ├── filed assignment
 *                     │   ├── z
-*                     │   ├── ()
-*                     │   │   └── field expression
-*                     │   │       ├── ()
-*                     │   │       │   └── field expression
-*                     │   │       │       ├── x
-*                     │   │       │       └── f
-*                     │   │       └── f
-*                     │   └── field: QUIZ
-*                     └── two commands
-*                         ├── printf
-*                         │   └── y
-*                         └── printf
-*                             └── z
+*                     │   ├── f
+*                     │   └── 100
+*                     └── printf
+*                         └── field expression
+*                             ├── field expression
+*                             │   ├── field expression
+*                             │   │   ├── x
+*                             │   │   └── f
+*                             │   └── f
+*                             └── f
 
 
 the cumulative print-space:
@@ -882,7 +832,7 @@ Object_ID_6      field       | value
                --------------+-------------------
                   is_object  | Undefined
                --------------+-------------------
-                  FOO        | QUX
+                  FOO        | object_ID_7
                --------------+-------------------
 
 Object_ID_5      field       | value
@@ -928,19 +878,16 @@ print the AST with symbol tables
 *             └── two commands
 *                 ├── filed assignment
 *                 │   ├── z
-*                 │   ├── ()
-*                 │   │   └── field expression
-*                 │   │       ├── ()
-*                 │   │       │   └── field expression
-*                 │   │       │       ├── x
-*                 │   │       │       └── f
-*                 │   │       └── f
-*                 │   └── field: QUIZ
-*                 └── two commands
-*                     ├── printf
-*                     │   └── y
-*                     └── printf
-*                         └── z
+*                 │   ├── f
+*                 │   └── 100
+*                 └── printf
+*                     └── field expression
+*                         ├── field expression
+*                         │   ├── field expression
+*                         │   │   ├── x
+*                         │   │   └── f
+*                         │   └── f
+*                         └── f
 
 
 the cumulative print-space:
@@ -972,95 +919,14 @@ Object_ID_7      field       | value
                --------------+-------------------
                   is_object  | Undefined
                --------------+-------------------
-                  QUX        | QUIZ
+                  FOO        | 100
                --------------+-------------------
 
 Object_ID_6      field       | value
                --------------+-------------------
                   is_object  | Undefined
                --------------+-------------------
-                  FOO        | QUX
-               --------------+-------------------
-
-Object_ID_5      field       | value
-               --------------+-------------------
-                  is_object  | Undefined
-               --------------+-------------------
-                  FOO        | object_ID_6
-               --------------+-------------------
-
-Object_ID_4      field       | value
-               --------------+-------------------
-                  val        | FOO
-               --------------+-------------------
-
-Object_ID_3      field       | value
-               --------------+-------------------
-                  val        | object_ID_7
-               --------------+-------------------
-
-Object_ID_2      field       | value
-               --------------+-------------------
-                  val        | object_ID_6
-               --------------+-------------------
-
-Object_ID_1      field       | value
-               --------------+-------------------
-                  val        | object_ID_5
-               --------------+-------------------
-
-----------------------------------------------------
-
-current control
-print the AST with symbol tables
-* Block
-* └── Block
-*     └── Block
-*         └── Block
-*             └── two commands
-*                 ├── printf
-*                 │   └── y
-*                 └── printf
-*                     └── z
-
-
-the cumulative print-space:
-
-
-=====================================================================================
-
-=====================================================================================
-Configuration after the transition step: 11
-=====================================================================================
-
-Current Stack:
-+----------+---------------+----------------+
-| type     | variable name | location       |
-+----------+---------------+----------------+
-| Declare  | x             | Object_ID_1    |
-+----------+---------------+----------------+
-| Declare  | y             | Object_ID_2    |
-+----------+---------------+----------------+
-| Declare  | z             | Object_ID_3    |
-+----------+---------------+----------------+
-| Declare  | f             | Object_ID_4    |
-+----------+---------------+----------------+
-
-
-Current Heap
--------------------------------------------------------
-Object_ID_7      field       | value
-               --------------+-------------------
-                  is_object  | Undefined
-               --------------+-------------------
-                  QUX        | QUIZ
-               --------------+-------------------
-
-Object_ID_6      field       | value
-               --------------+-------------------
-                  is_object  | Undefined
-               --------------+-------------------
-                  FOO        | QUX
+                  FOO        | object_ID_7
                --------------+-------------------
 
 Object_ID_5      field       | value
@@ -1099,16 +965,22 @@ print the AST with symbol tables
 *     └── Block
 *         └── Block
 *             └── printf
-*                 └── z
+*                 └── field expression
+*                     ├── field expression
+*                     │   ├── field expression
+*                     │   │   ├── x
+*                     │   │   └── f
+*                     │   └── f
+*                     └── f
 
 
 the cumulative print-space:
- object_ID_6 
+
 
 =====================================================================================
 
 =====================================================================================
-Configuration after the transition step: 12
+Configuration after the transition step: 11
 program terminates without error
 =====================================================================================
 
@@ -1124,14 +996,14 @@ Object_ID_7      field       | value
                --------------+-------------------
                   is_object  | Undefined
                --------------+-------------------
-                  QUX        | QUIZ
+                  FOO        | 100
                --------------+-------------------
 
 Object_ID_6      field       | value
                --------------+-------------------
                   is_object  | Undefined
                --------------+-------------------
-                  FOO        | QUX
+                  FOO        | object_ID_7
                --------------+-------------------
 
 Object_ID_5      field       | value
@@ -1165,6 +1037,6 @@ Object_ID_1      field       | value
 
 
 the cumulative print-space:
- object_ID_6  object_ID_7 
+ 100 
 
 =====================================================================================

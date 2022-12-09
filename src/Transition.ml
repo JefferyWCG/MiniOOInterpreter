@@ -12,19 +12,19 @@ let rec eval exp st hp= match exp with
       let v1 = eval exp1 st hp and v2 = eval exp2 st hp in
         (match (v1,v2) with
         | (Value (IntVal Num num1), Value (IntVal Num num2)) -> Value (IntVal( Num (num1-num2)))
-        |_ -> print_string "evaluation error in minus expression, this should never happen!"; Error
+        |_ ->Error
         )
     |PlusExpn ({raw=Expn exp1;  scope=_},{raw=Expn exp2;  scope=_}) ->
       let v1 = eval exp1 st hp and v2 = eval exp2 st hp in
         (match (v1,v2) with
         | (Value (IntVal Num num1), Value (IntVal Num num2)) -> Value (IntVal( Num (num1+num2)))
-        |_ -> print_string "evaluation error in plus expression, this should never happen!"; Error
+        |_ -> Error
         )
     |TimesExpn ({raw=Expn exp1;  scope=_},{raw=Expn exp2;  scope=_}) ->
       let v1 = eval exp1 st hp and v2 = eval exp2 st hp in
         (match (v1,v2) with
         | (Value (IntVal Num num1), Value (IntVal Num num2)) -> Value (IntVal( Num (num1*num2)))
-        |_ -> print_string "evaluation error in plus expression, this should never happen!"; Error
+        |_ -> Error
         )
     |_-> raise (Excpetion "evaluation error in arithmatic expression, this should never happen!")
     )

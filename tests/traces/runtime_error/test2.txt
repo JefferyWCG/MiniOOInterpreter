@@ -1,16 +1,17 @@
 print the AST with symbol tables
 * start.    SymtableTable:[]
 * └── variable Declaration of x.    SymtableTable:[]
-*     └── variable Declaration of f.    SymtableTable:[x; ]
-*         └── two commands.    SymtableTable:[f; x; ]
-*             ├── variable assignment of variable: f.    SymtableTable:[f; x; ]
-*             │   └── field: FOO.    SymtableTable:[f; x; ]
-*             └── two commands.    SymtableTable:[f; x; ]
-*                 ├── malloc of: x.    SymtableTable:[f; x; ]
-*                 └── printf.    SymtableTable:[f; x; ]
-*                     └── field expression.    SymtableTable:[f; x; ]
-*                         ├── x.    SymtableTable:[f; x; ]
-*                         └── f.    SymtableTable:[f; x; ]
+*     └── variable Declaration of y.    SymtableTable:[x; ]
+*         └── variable Declaration of f.    SymtableTable:[y; x; ]
+*             └── two commands.    SymtableTable:[f; y; x; ]
+*                 ├── variable assignment of variable: f.    SymtableTable:[f; y; x; ]
+*                 │   └── field: FOO.    SymtableTable:[f; y; x; ]
+*                 └── two commands.    SymtableTable:[f; y; x; ]
+*                     ├── malloc of: x.    SymtableTable:[f; y; x; ]
+*                     └── variable assignment of variable: y.    SymtableTable:[f; y; x; ]
+*                         └── field expression.    SymtableTable:[f; y; x; ]
+*                             ├── x.    SymtableTable:[f; y; x; ]
+*                             └── f.    SymtableTable:[f; y; x; ]
 
 
 semantics transition:
@@ -39,16 +40,17 @@ Object_ID_1      field       | value
 current control
 print the AST with symbol tables
 * Block
-* └── variable Declaration of f
-*     └── two commands
-*         ├── variable assignment of variable: f
-*         │   └── field: FOO
+* └── variable Declaration of y
+*     └── variable Declaration of f
 *         └── two commands
-*             ├── malloc of: x
-*             └── printf
-*                 └── field expression
-*                     ├── x
-*                     └── f
+*             ├── variable assignment of variable: f
+*             │   └── field: FOO
+*             └── two commands
+*                 ├── malloc of: x
+*                 └── variable assignment of variable: y
+*                     └── field expression
+*                         ├── x
+*                         └── f
 
 
 the cumulative print-space:
@@ -66,7 +68,7 @@ Current Stack:
 +----------+---------------+----------------+
 | Declare  | x             | Object_ID_1    |
 +----------+---------------+----------------+
-| Declare  | f             | Object_ID_2    |
+| Declare  | y             | Object_ID_2    |
 +----------+---------------+----------------+
 
 
@@ -88,15 +90,16 @@ current control
 print the AST with symbol tables
 * Block
 * └── Block
-*     └── two commands
-*         ├── variable assignment of variable: f
-*         │   └── field: FOO
+*     └── variable Declaration of f
 *         └── two commands
-*             ├── malloc of: x
-*             └── printf
-*                 └── field expression
-*                     ├── x
-*                     └── f
+*             ├── variable assignment of variable: f
+*             │   └── field: FOO
+*             └── two commands
+*                 ├── malloc of: x
+*                 └── variable assignment of variable: y
+*                     └── field expression
+*                         ├── x
+*                         └── f
 
 
 the cumulative print-space:
@@ -114,15 +117,22 @@ Current Stack:
 +----------+---------------+----------------+
 | Declare  | x             | Object_ID_1    |
 +----------+---------------+----------------+
-| Declare  | f             | Object_ID_2    |
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_3    |
 +----------+---------------+----------------+
 
 
 Current Heap
 -------------------------------------------------------
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
 Object_ID_2      field       | value
                --------------+-------------------
-                  val        | FOO
+                  val        | null
                --------------+-------------------
 
 Object_ID_1      field       | value
@@ -136,12 +146,16 @@ current control
 print the AST with symbol tables
 * Block
 * └── Block
-*     └── two commands
-*         ├── malloc of: x
-*         └── printf
-*             └── field expression
-*                 ├── x
-*                 └── f
+*     └── Block
+*         └── two commands
+*             ├── variable assignment of variable: f
+*             │   └── field: FOO
+*             └── two commands
+*                 ├── malloc of: x
+*                 └── variable assignment of variable: y
+*                     └── field expression
+*                         ├── x
+*                         └── f
 
 
 the cumulative print-space:
@@ -159,7 +173,9 @@ Current Stack:
 +----------+---------------+----------------+
 | Declare  | x             | Object_ID_1    |
 +----------+---------------+----------------+
-| Declare  | f             | Object_ID_2    |
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_3    |
 +----------+---------------+----------------+
 
 
@@ -167,17 +183,17 @@ Current Heap
 -------------------------------------------------------
 Object_ID_3      field       | value
                --------------+-------------------
-                  is_object  | Undefined
+                  val        | FOO
                --------------+-------------------
 
 Object_ID_2      field       | value
                --------------+-------------------
-                  val        | FOO
+                  val        | null
                --------------+-------------------
 
 Object_ID_1      field       | value
                --------------+-------------------
-                  val        | object_ID_3
+                  val        | null
                --------------+-------------------
 
 ----------------------------------------------------
@@ -186,10 +202,13 @@ current control
 print the AST with symbol tables
 * Block
 * └── Block
-*     └── printf
-*         └── field expression
-*             ├── x
-*             └── f
+*     └── Block
+*         └── two commands
+*             ├── malloc of: x
+*             └── variable assignment of variable: y
+*                 └── field expression
+*                     ├── x
+*                     └── f
 
 
 the cumulative print-space:
@@ -199,36 +218,102 @@ the cumulative print-space:
 
 =====================================================================================
 Configuration after the transition step: 4
-program terminates without error
 =====================================================================================
 
 Current Stack:
 +----------+---------------+----------------+
 | type     | variable name | location       |
 +----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_3    |
++----------+---------------+----------------+
 
 
 Current Heap
 -------------------------------------------------------
-Object_ID_3      field       | value
+Object_ID_4      field       | value
                --------------+-------------------
                   is_object  | Undefined
                --------------+-------------------
 
-Object_ID_2      field       | value
+Object_ID_3      field       | value
                --------------+-------------------
                   val        | FOO
                --------------+-------------------
 
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
 Object_ID_1      field       | value
                --------------+-------------------
-                  val        | object_ID_3
+                  val        | object_ID_4
+               --------------+-------------------
+
+----------------------------------------------------
+
+current control
+print the AST with symbol tables
+* Block
+* └── Block
+*     └── Block
+*         └── variable assignment of variable: y
+*             └── field expression
+*                 ├── x
+*                 └── f
+
+
+the cumulative print-space:
+
+
+=====================================================================================
+
+=====================================================================================
+Configuration after the transition step: 5program terminates because of error
+=====================================================================================
+
+Current Stack:
++----------+---------------+----------------+
+| type     | variable name | location       |
++----------+---------------+----------------+
+| Declare  | x             | Object_ID_1    |
++----------+---------------+----------------+
+| Declare  | y             | Object_ID_2    |
++----------+---------------+----------------+
+| Declare  | f             | Object_ID_3    |
++----------+---------------+----------------+
+
+
+Current Heap
+-------------------------------------------------------
+Object_ID_4      field       | value
+               --------------+-------------------
+                  is_object  | Undefined
+               --------------+-------------------
+
+Object_ID_3      field       | value
+               --------------+-------------------
+                  val        | FOO
+               --------------+-------------------
+
+Object_ID_2      field       | value
+               --------------+-------------------
+                  val        | null
+               --------------+-------------------
+
+Object_ID_1      field       | value
+               --------------+-------------------
+                  val        | object_ID_4
                --------------+-------------------
 
 ----------------------------------------------------
 
 
 the cumulative print-space:
- Undefined 
+
 
 =====================================================================================

@@ -66,11 +66,11 @@ var x; var y; var z; var f;
      {malloc(z);
      {f = FOO;
      {x.f=y;
-     {x.f.f=QUX;
-     {z.((x.f).f)=QUIZ;
-     {printf(y);printf(z)
+     {y.f=z;
+     {z.f =100;
+     printf(x.f.f.f)
 
-     }}}}}}}}; "
+     }}}}}}}; "
 
 
 
@@ -143,12 +143,12 @@ var x; var f;
   };
 "
 
-# access a non-assigned field of a Object variable
+# assign a non-assigned field of a Object to a variable
 runtime_error_test2="
-var x; var f;
+var x; var y; var f;
   {f = FOO;
   {malloc(x);
-   printf(x.f)
+   y=x.f
   }};
 "
 
