@@ -29,10 +29,10 @@ The environment for the interpreter includes ocamlc, menhir, and ocamllex.
     * [```AST.ml```](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/src/AST.ml) - includs the data structures and contructors for the Abstract Syntax Tree
     * [```Lexer.mll```](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/src/Lexer.mll) - defines the lexer for recognizing tokens
     * [```Parser.mly```](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/src/Parser.mly) - defines the context-free Grammer for parsing
-    * ```Decoration.mly``` - includs functions for construction of decorated AST, including getting symbol tables and, checking scope, printing decorated AST
+    * [```Decoration.mly```](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/src/Decoration.ml) - includs functions for construction of decorated AST, including getting symbol tables and, checking scope, printing decorated AST
     * [```Domain.ml```](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/src/Domain.ml) - defines the semantics domain, and helper functions for semantic transitions
-    * [```Transition.ml](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/src/Transition.ml)``` - includes functions for small-step semantic transitions, evaluation of expression and bool expression.
-    * [```Interpreter.ml](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/src/Interpreter.ml)``` - is the actually computing place for the program, it will iteratively do the small-step semantic transitions until termination, and print the results. 
+    * [```Transition.ml```](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/src/Transition.ml) - includes functions for small-step semantic transitions, evaluation of expression and bool expression.
+    * [```Interpreter.ml```](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/src/Interpreter.ml) - is the actually computing place for the program, it will iteratively do the small-step semantic transitions until termination, and print the results. 
 
 * Users could write their own MiniOO codes in [```./user.txt```](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/user.txt) file, the script to run the code by the interpreter is in [```./run.sh```](https://github.com/JefferyWCG/MiniOOInterpreter/blob/main/run.sh). To write the program and run it with the interpreter 
   * replace the content ```./user.txt``` with user-supplied code, then run the scripts ```./run.sh``` or ```./run.sh -m```.  
