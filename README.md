@@ -1,6 +1,6 @@
 # An Interpreter for MiniOO 
 This is an interpreter of a Mini Object-Oriented Language. The Project if for the personal project in HPL (2022-fall).  
-by Jeffery Wang  
+by Jeffery Wang. It's fun to run the interpreter and see the traces. I do not give consent for anyone to copy the code for plagiarism in any form (including copying, "paraphrasing", and "learned how the code works and then type it"!)
 email: jefferywcg@gmail.com
 ## Overview
 ![overview1](https://user-images.githubusercontent.com/98352935/206552548-10b8f656-4753-4b0d-a5e6-14cb7aaae926.svg)
